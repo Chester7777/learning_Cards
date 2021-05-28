@@ -1,0 +1,26 @@
+.searchPack {
+    margin: 10px 0;
+}
+
+.search_table {
+    display: flex;
+    justify-content: center;
+}
+
+.slider {
+    width: 80%;
+}
+
+.paginator {
+    margin: 10px;
+}
+
+.pageNumber {
+    padding: 2px;
+    border: 1px solid gray;
+}
+
+.selectedPage {
+    font-weight: bold;
+    border: 2px solid black;
+}

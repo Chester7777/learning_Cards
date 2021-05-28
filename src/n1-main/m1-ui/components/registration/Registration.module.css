@@ -1,0 +1,21 @@
+.register {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: auto;
+}
+
+input {
+    margin: 10px;
+    border-radius: 18px;
+    padding: 8px;
+    text-align: center;
+}
+
+
+.errorText {
+    height: 20px;
+    color: red;
+    margin-bottom: 5px;
+}
