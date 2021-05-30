@@ -1,0 +1,55 @@
+.register {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: auto;
+}
+
+input {
+    margin: 10px;
+    border-radius: 18px;
+    padding: 8px;
+    text-align: center;
+}
+
+
+.errorText {
+    height: 20px;
+    color: red;
+    margin-bottom: 5px;
+}
+.wrapProfile{
+    width: 50%;
+    border: 1px solid;
+    display: flex;
+    flex-direction: row;
+}
+.wrapAva{
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+.wrapInfo{
+    width: 300px;
+    border: 1px solid;
+    margin: 10px;
+display: flex;
+    flex-direction: column;
+}
+.infoBlock{
+    display: flex;
+flex-direction: row;
+}
+.titles{
+   width: 85px;
+text-align: left;
+}
+.info{
+    word-wrap: break-word ;
+    justify-content: flex-start;
+}

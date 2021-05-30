@@ -17,8 +17,6 @@ const Registration = () => {
                     <input />
                     <div >Password</div>
                     <input />
-
-
                     <Button
                         label={'Sign Up'}
                         backgroundColor={'blue'}/>
