@@ -6,6 +6,8 @@ import {loginReducer} from "./loginReducer";
 import { forgotReducer } from './forgotReducer';
 import {cardsReducer} from "./cardsReducer";
 import { searchReducer } from './searchReducer';
+import {appReducer} from "./appReducer";
+import {profileReducer} from "./profileReducer";
 
 
 const rootReducer = combineReducers({
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
     login: loginReducer,
     forgotPassword: forgotReducer,
     cards: cardsReducer,
-    search: searchReducer
+    search: searchReducer,
+    app:appReducer,
+    profile:profileReducer
 })
 // непосредственно создаём store
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
