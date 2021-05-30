@@ -5,8 +5,7 @@ import {Button} from "../../common/Button/Button";
 
 const Registration = () => {
 
-///fdfdfdfdf
-
+///fdfdfdfdfdfdfdfdfdfdf
         return (
             <div>
                 <p> Please fill in the blank fields and press sign up </p>
