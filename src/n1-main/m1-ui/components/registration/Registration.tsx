@@ -5,7 +5,7 @@ import {Button} from "../../common/Button/Button";
 
 const Registration = () => {
 
-
+///fdfdfdfdf
 
         return (
             <div>
