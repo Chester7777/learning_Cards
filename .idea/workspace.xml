@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="5a2e5b53-b47d-494b-815e-bce5e88cfed7" name="Default Changelist" comment="test" />
-=======
     <list default="true" id="ded00531-9241-4cf9-90a9-1812b2071c69" name="Default Changelist" comment="test">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
->>>>>>> origin/Registration_dgarbuz
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Merge.Settings">
-<<<<<<< HEAD
-    <option name="BRANCH" value="origin/Registration_dgarbuz" />
-=======
     <option name="BRANCH" value="origin/master" />
->>>>>>> origin/Registration_dgarbuz
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -29,11 +20,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-<<<<<<< HEAD
-  <component name="ProjectId" id="1tAqK9CLLWEDwh1q28nhSHSedCD" />
-=======
   <component name="ProjectId" id="1tFUjJvCk1gR87s1N11C1qQ4x40" />
->>>>>>> origin/Registration_dgarbuz
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -43,54 +30,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-<<<<<<< HEAD
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-=======
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../cards-nya-back-2-0" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="C:\works\Cards\learning_Cards\node_modules\typescript\lib" />
->>>>>>> origin/Registration_dgarbuz
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-<<<<<<< HEAD
-      <changelist id="5a2e5b53-b47d-494b-815e-bce5e88cfed7" name="Default Changelist" comment="" />
-      <created>1622222174673</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1622222174673</updated>
-      <workItem from="1622222177029" duration="1908000" />
-      <workItem from="1622241744502" duration="1235000" />
-      <workItem from="1622243018877" duration="374000" />
-      <workItem from="1622329709549" duration="203000" />
-      <workItem from="1622381997873" duration="1959000" />
-      <workItem from="1622387217496" duration="392000" />
-      <workItem from="1622579487364" duration="300000" />
-    </task>
-    <task id="LOCAL-00001" summary="api">
-      <created>1622329829872</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1622329829872</updated>
-    </task>
-    <task id="LOCAL-00002" summary="test">
-      <created>1622386535922</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1622386535922</updated>
-    </task>
-    <task id="LOCAL-00003" summary="test">
-      <created>1622579764126</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1622579764126</updated>
-=======
       <changelist id="ded00531-9241-4cf9-90a9-1812b2071c69" name="Default Changelist" comment="" />
       <created>1622364464576</created>
       <option name="number" value="Default" />
@@ -118,7 +65,6 @@
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
       <updated>1622387077087</updated>
->>>>>>> origin/Registration_dgarbuz
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
@@ -136,15 +82,9 @@
         </entry>
       </map>
     </option>
-<<<<<<< HEAD
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="api" />
-=======
-  </component>
-  <component name="VcsManagerConfiguration">
->>>>>>> origin/Registration_dgarbuz
     <MESSAGE value="test" />
     <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
