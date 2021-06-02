@@ -13,8 +13,12 @@ export const authAPI = {
         // email: string
         // password: string
         // rememberMe: boolean
+    },
 
-    }
+    signUp(email: string, password: string) {
+        return instance.post<{ addedUser: ResponceLoginType, error?: string }>('auth/register', {email, password})
+    },
+
 }
 
 
@@ -35,10 +39,16 @@ export type ResponceLoginType = {
     name: string;
     avatar?: string;
     publicCardPacksCount: number; // количество колод
-    created: string;
-    updated: string;
+    created: string; // need Data
+    updated: string; // need Data
     isAdmin: boolean;
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
     error?: string;
 }
+
+export type SignUpParamsType = {
+    email: string
+    password: string
+}
+

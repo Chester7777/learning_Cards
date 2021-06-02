@@ -11,7 +11,7 @@ import Cards from '../components/cards/Cards';
 
 const Routes = () => {
     return (
-        <div>
+        <>
             <Switch>
                 <Route exact path={'/'} render={() => <div> Hello</div>}/>
                 <Route exact path={'/registration'} render={() => <Registration/>}/>
@@ -23,7 +23,7 @@ const Routes = () => {
                 <Route path={'/404'} render={() => <Error404/>}/>
                 <Redirect path={'*'} to={'/404'}/>
             </Switch>
-        </div>
+        </>
     );
 }
 

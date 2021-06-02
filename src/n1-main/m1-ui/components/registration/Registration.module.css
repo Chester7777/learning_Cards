@@ -55,19 +55,19 @@
 
 .background {
     background-color: #E5E5E5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
 }
 .registerBlock {
-    margin: 0 auto;
     width: 413px;
     height: 540px;
     background: #F9F9FE;
     box-shadow: 0 4px 64px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px 48px;
-    box-sizing: border-box;
+
 }
 
 .registerFormInput{
@@ -92,4 +92,9 @@
     height: 20px;
     color: red;
     margin-bottom: 5px;
+}
+.formSummaryError {
+    border: red 1px solid;
+    padding: 5px;
+    color: #e04949;
 }
