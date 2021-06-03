@@ -24,7 +24,7 @@
     border: 1px solid;
     display: flex;
     margin: 0 auto;
-    width: 413px;
+   max-width: 413px;
     height: 540px;
     background: #F9F9FE;
     box-shadow: 0 4px 64px rgba(0, 0, 0, 0.25);
@@ -34,6 +34,14 @@
     padding: 20px 48px;
     box-sizing: border-box;
 
+}
+@media (max-width: 431px) {
+    .wrapProfile{
+        max-width: 300px;
+        padding: 20px 10px;
+
+    }
+    
 }
 
 .wrapAva {
