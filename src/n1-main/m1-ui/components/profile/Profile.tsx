@@ -27,7 +27,7 @@ const Profile =React.memo(function (){
     return (
         <div className={s.background}>
             <div className={s.wrapProfile}>
-                <div className={s.wrapAva} style={{backgroundImage: `url(${ava})`}}>ss</div>
+                <div className={s.wrapAva} style={{backgroundImage: `url(${ava})`}}></div>
                 <div className={s.wrapInfo}>
                     <div className={s.infoBlock}>
                         <div className={s.titles}>Name:</div>
