@@ -3,8 +3,20 @@ import {authAPI, LoginParamsType, ResponceLoginType} from "../m3-dal/auth-api";
 import {setIsLoggedInAC} from "./loginReducer";
 import {setIsInitializedAC} from "./appReducer";
 
-
-const initialState: ResponceLoginType = {
+type profileStateType={
+    _id: string,
+    email: string,
+    name: string,
+    avatar: string,
+    publicCardPacksCount: number,// количество колод
+    created: string,
+    updated: string,
+    isAdmin: boolean,
+    verified: boolean, // подтвердил ли почту
+    rememberMe: boolean,
+    error: string
+}
+const initialState = {
     _id: '',
     email: '',
     name: '',
@@ -17,8 +29,10 @@ const initialState: ResponceLoginType = {
     rememberMe: false,
     error: ''
 }
+
 type ActionsType = ReturnType<typeof setProfileDataAC>
     |ReturnType<typeof logOutAC>
+|ReturnType<typeof setLoginErrorAC>
 
 export const profileReducer = (state: any = initialState, action: ActionsType) => {
     switch (action.type) {
@@ -42,12 +56,15 @@ export const profileReducer = (state: any = initialState, action: ActionsType) =
         case "logOut":
             let newState={}
             return newState
+        case "login/SET-ERROR":
+            return {...state,error:action.error}
         default:
             return {...state}
     }
 }
 
 export const setProfileDataAC = (data: ResponceLoginType) => ({type: 'login/SET-PROFILE-DATA', data} as const)
+export const setLoginErrorAC = (error:string) => ({type: 'login/SET-ERROR', error} as const)
 export const logOutAC=()=>({type:'logOut'}as const)
 
 

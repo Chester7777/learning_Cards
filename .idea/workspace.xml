@@ -2,16 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ded00531-9241-4cf9-90a9-1812b2071c69" name="Default Changelist" comment="test">
-      <change afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/components/login/Login.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/common/Loader/Loading.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/common/Loader/__Iphone-spinner-1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/common/Loader/loading.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/common/Button/Button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/common/Button/Button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/components/login/Login.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/components/login/Login.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/components/login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/components/login/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/components/profile/Profile.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/components/profile/Profile.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/components/profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/components/profile/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/n1-main/m2-bll/appReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m2-bll/appReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/components/registration/Registration.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/components/registration/Registration.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/n1-main/m2-bll/loginReducer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m2-bll/loginReducer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/n1-main/m2-bll/profileReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m2-bll/profileReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/n1-main/m3-dal/auth-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m3-dal/auth-api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +44,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/n1-main/m1-ui/components/login" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/n1-main/m1-ui/common/Loader" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="D:\react\itincubator\friday\learning_Cards\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\react\itincubator\friday\learning_Cards\src\n1-main\m1-ui\common\Loader" />
       <recent name="D:\react\itincubator\friday\learning_Cards\src\n1-main\m1-ui\components\login" />
     </key>
   </component>
@@ -79,6 +83,7 @@
       <workItem from="1622364467199" duration="7013000" />
       <workItem from="1622641954409" duration="9033000" />
       <workItem from="1622658290903" duration="2801000" />
+      <workItem from="1622710976456" duration="8279000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1622384273881</created>

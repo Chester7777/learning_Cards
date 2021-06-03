@@ -7,6 +7,7 @@ import {LoginParamsType} from "../../../m3-dal/auth-api";
 import {AppRootStateType} from "../../../m2-bll/store";
 import {Redirect} from "react-router-dom";
 import Profile from "../profile/Profile";
+import {Simulate} from "react-dom/test-utils";
 
 type  LoginContentPropsType = {
 
@@ -40,6 +41,7 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
     const onClickLoginButton = () => {
         onClickHandler({email, password, rememberMe})
     }
+    const error=useSelector<AppRootStateType,string>(state => state.profile.error)
 
 
     return (
@@ -79,12 +81,16 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
                         onChange={(e) => setRememberMe(!rememberMe)}
                     />
                     <Button
+                        primary={true}
                         onClick={onClickLoginButton}
                         label={'Login'}
                         backgroundColor={'blue'}
                     />
+                    <div className={s.errorText}>{error}</div>
+
                 </form>
             </div>
+
         </div>
 
     )

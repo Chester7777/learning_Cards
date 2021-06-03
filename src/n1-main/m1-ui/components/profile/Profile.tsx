@@ -6,7 +6,6 @@ import {Button} from "../../common/Button/Button";
 import {logoutTC} from "../../../m2-bll/loginReducer";
 import {logOutAC} from "../../../m2-bll/profileReducer";
 import {Redirect} from "react-router-dom";
-
 const Profile =React.memo(function (){
     const dispatch = useDispatch()
     const name = useSelector<AppRootStateType, string>(state => state.profile.name)
@@ -26,8 +25,7 @@ const Profile =React.memo(function (){
 
     }
     return (
-        <div>
-            Profile
+        <div className={s.background}>
             <div className={s.wrapProfile}>
                 <div className={s.wrapAva} style={{backgroundImage: `url(${ava})`}}>ss</div>
                 <div className={s.wrapInfo}>
@@ -47,7 +45,7 @@ const Profile =React.memo(function (){
                         <div className={s.titles}>Card Packs:</div>
                         <div className={s.info}>{publicCardPacksCount}</div>
                     </div>
-                    <Button onClick={logOutHandler} label={"LogOut"}/>
+                    <Button primary={true} onClick={logOutHandler} label={"LogOut"}/>
 
                 </div>
 
