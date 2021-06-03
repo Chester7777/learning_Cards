@@ -84,7 +84,6 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
                         primary={true}
                         onClick={onClickLoginButton}
                         label={'Login'}
-                        backgroundColor={'blue'}
                     />
                     <div className={s.errorText}>{error}</div>
 
