@@ -10,10 +10,12 @@ export const authAPI = {
 
     login(data: LoginParamsType) {
         return instance.post<ResponceLoginType>('/auth/login', data)
-        // email: string
-        // password: string
-        // rememberMe: boolean
-
+           },
+    logOut() {
+        return instance.delete<ResponceLogOutType>('/auth/me')
+         },
+    me(){
+        return instance.post('auth/me')
     }
 }
 
@@ -41,4 +43,9 @@ export type ResponceLoginType = {
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
     error?: string;
+}
+
+export type ResponceLogOutType = {
+    info: string;
+    error: string;
 }

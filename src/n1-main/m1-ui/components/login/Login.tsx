@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import s from "../registration/Registration.module.css";
+import s from "../login/Login.module.css";
 import {Button} from "../../common/Button/Button";
 import {loginTC} from "../../../m2-bll/loginReducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,12 +9,7 @@ import {Redirect} from "react-router-dom";
 import Profile from "../profile/Profile";
 
 type  LoginContentPropsType = {
-    // email: string
-    // setEmail: () => void
-    // password: string
-    // setPassword: () => void
-    // rememberMe: boolean
-    // setRememberMe: () => void
+
     onClickHandler: ({email, password, rememberMe}: LoginParamsType) => void
 }
 
@@ -47,51 +42,55 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
     }
 
 
-    return <div>
-        <p> Please fill in the blank fields and press LOGIN </p>
-        <p>or use common test account credentials:</p>
-        <p>Email: <b>nya-admin@nya.nya</b></p>
-        <p>Password: <b>1qazxcvBG</b></p>
-        <form className={s.register}>
+    return (
+        <div className={s.background}>
+            <div className={s.registerBlock}>
+                <p> Please fill in the blank fields and press Login </p>
 
-            <div>
-                Email
-                <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.currentTarget.value)}/>
-            </div>
-            <div>
-                Password
-                <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.currentTarget.value)}
-                />
-            </div>
-            <input
-                type={"checkbox"}
-                name="rememberMe"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(!rememberMe)}
-            />
-            <div className={s.errorText}>
+                <form className={s.registerForm}>
 
+                    <label htmlFor={'email'}>Email</label>
+                    <div className={s.register}>
+                        <input
+                            className={s.registerFormInput}
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.currentTarget.value)}/>
+                    </div>
+
+                    <label htmlFor={'password'}>Password</label>
+                    <div className={s.register}>
+                        <input
+                            className={s.registerFormInput}
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.currentTarget.value)}
+                        />
+                    </div>
+
+                    <label htmlFor={'checkbox'}>       <span className={s.check}>Remember Me</span></label>
+                    <input
+                        className={s.inputcheck}
+                        type={"checkbox"}
+                        name="rememberMe"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(!rememberMe)}
+                    />
+                    <Button
+                        onClick={onClickLoginButton}
+                        label={'Login'}
+                        backgroundColor={'blue'}
+                    />
+                </form>
             </div>
-            <Button
-                onClick={onClickLoginButton}
-                label={'Login'}
-                backgroundColor={'blue'}
-            />
-        </form>
-    </div>
+        </div>
+
+    )
 
 
 }
-
-
 
 
 

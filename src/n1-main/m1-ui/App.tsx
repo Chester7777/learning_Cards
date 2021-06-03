@@ -16,7 +16,7 @@ const App = () => {
     let dispatch = useDispatch()
     useEffect(() => {
         dispatch(initializeAppTC())
-    }, [dispatch])
+    }, [])
     if (!isInitialized) {
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>

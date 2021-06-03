@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
-import {ResponceLoginType} from "../m3-dal/auth-api";
+import {authAPI, LoginParamsType, ResponceLoginType} from "../m3-dal/auth-api";
 import {setIsLoggedInAC} from "./loginReducer";
+import {setIsInitializedAC} from "./appReducer";
 
 
 const initialState: ResponceLoginType = {
@@ -17,6 +18,8 @@ const initialState: ResponceLoginType = {
     error: ''
 }
 type ActionsType = ReturnType<typeof setProfileDataAC>
+    |ReturnType<typeof logOutAC>
+
 export const profileReducer = (state: any = initialState, action: ActionsType) => {
     switch (action.type) {
         case 'login/SET-PROFILE-DATA': {
@@ -34,14 +37,17 @@ export const profileReducer = (state: any = initialState, action: ActionsType) =
                 error: action.data.error
                             }
 
-        }
 
+        }
+        case "logOut":
+            let newState={}
+            return newState
         default:
             return {...state}
     }
 }
 
 export const setProfileDataAC = (data: ResponceLoginType) => ({type: 'login/SET-PROFILE-DATA', data} as const)
-
+export const logOutAC=()=>({type:'logOut'}as const)
 
 
