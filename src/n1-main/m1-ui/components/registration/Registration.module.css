@@ -11,8 +11,21 @@
 .registerForm {
     display: flex;
     flex-direction: column;
-}
+    width: 100%;
 
+}
+@media (max-width: 431px) {
+
+
+    .registerBlock p{
+        font-size: medium;
+        line-height: 20px;
+
+    }
+    .registerBlock{
+        max-width: 300px;
+    }
+}
 .registerForm label {
     font-family: SF UI Display;
     font-style: normal;
@@ -58,7 +71,7 @@
 }
 .registerBlock {
     margin: 0 auto;
-    width: 413px;
+    max-width: 413px;
     height: 540px;
     background: #F9F9FE;
     box-shadow: 0 4px 64px rgba(0, 0, 0, 0.25);
@@ -71,7 +84,8 @@
 }
 
 .registerFormInput{
-    width: 347px;
+    width: 100%;
+
     height: 48px;
     border: none;
     background-color: #F9F9FE;
@@ -85,6 +99,18 @@
     line-height: 24px;
 }
 
+@media (max-width: 431px) {
+
+
+    .registerBlock p{
+        font-size: medium;
+        line-height: 20px;
+
+    }
+    .registerBlock{
+        max-width: 300px;
+    }
+}
 
 
 
