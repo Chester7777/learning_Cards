@@ -1,6 +1,5 @@
-import {type} from "os";
 import {Dispatch} from "redux";
-import { cardAPI } from "../m3-dal/forgot-api";
+import {cardAPI} from "../m3-dal/forgot-api";
 
 
 type InitialStateType = {

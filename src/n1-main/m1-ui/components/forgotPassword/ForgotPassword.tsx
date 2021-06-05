@@ -13,18 +13,18 @@ const ForgotPassword = React.memo(function ForgotPassword() {
     const from = useSelector((store: AppRootStateType) => store.forgotPassword.from)
 
 
-    const [value, setValue]= useState<string>("");
+    const [email, setEmail]= useState<string>("");
 
 
     const handleChange =(e:React.FormEvent<HTMLInputElement>)=> {
         if (e.currentTarget.value && e.currentTarget.value.trim() !== ""){
-            setValue(e.currentTarget.value);
+            setEmail(e.currentTarget.value);
         }
     }
 
     const onClickBtn = useCallback(() => {
-        dispatch(forgotPasswordTC(value, message, from))
-        setValue('')}, [value, dispatch])
+        dispatch(forgotPasswordTC(email, message, from))
+        setEmail('')}, [email, dispatch])
 
     return (
         <div className={s.forgotPasswordBlock} style={{marginTop:"25px"}}>
