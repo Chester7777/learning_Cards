@@ -12,20 +12,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-
 }
-@media (max-width: 431px) {
 
-
-    .registerBlock p{
-        font-size: medium;
-        line-height: 20px;
-
-    }
-    .registerBlock{
-        max-width: 300px;
-    }
-}
 .registerForm label {
     font-family: SF UI Display;
     font-style: normal;
@@ -59,22 +47,6 @@
     box-sizing: border-box;
 }
 
-.registerFormInput{
-    width: 100%;
-
-    height: 48px;
-    border: none;
-    background-color: #F9F9FE;
-    border-bottom: 1px solid black;
-    outline: none;
-
-    font-family: SF UI Display;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-}
-
 @media (max-width: 431px) {
 
 
@@ -88,7 +60,36 @@
     }
 }
 
+.registerFormInput{
+    width: 100%;
+    height: 48px;
+    border: none;
+    background-color: #F9F9FE;
+    border-bottom: 1px solid black;
+    outline: none;
 
+    font-family: SF UI Display;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+
+
+
+.errorText {
+    height: 20px;
+    color: red;
+    margin-bottom: 5px;
+}
+.check{
+    opacity: 1;
+}
+.inputcheck{
+margin-top: 10px
+
+}
 
 .errorText {
     height: 20px;

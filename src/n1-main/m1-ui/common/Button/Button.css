@@ -1,15 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
 .storybook-button {
-    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 700;
+    font-family: SF UI Display;
+
     border: 0;
     border-radius: 3em;
     cursor: pointer;
     display: inline-block;
-    line-height: 1;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: 0.01em;
+
+    color: #ECECF9;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    opacity:0.9;
+    margin: 10px;
+
+}
+.storybook-button:active{
+    box-shadow: 0 5px #666;
+    transform: translateY(3px);
+}
+.storybook-button:hover{
+    opacity:0.7;
+
 }
 .storybook-button--primary {
     color: white;
-    background-color: #1ea7fd;
+    background-color: #0120d4;
+
 }
 .storybook-button--secondary {
     color: #333;

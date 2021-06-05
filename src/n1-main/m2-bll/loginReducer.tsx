@@ -1,7 +1,7 @@
 import {Dispatch} from "redux"
 import {authAPI, LoginParamsType} from "../m3-dal/auth-api";
 import {SetAppErrorActionType, SetAppStatusActionType, setIsInitializedAC, setIsInitializedACType} from "./appReducer";
-import {setProfileDataAC} from "./profileReducer";
+import {setLoginErrorAC, setProfileDataAC} from "./profileReducer";
 
 // types
 type InitialStateType = {
@@ -10,7 +10,8 @@ type InitialStateType = {
 
 type ActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setProfileDataAC> | SetAppErrorActionType
     | SetAppStatusActionType
-    | setIsInitializedACType
+    | setIsInitializedACType |
+    ReturnType<typeof setLoginErrorAC>
 
 export type RequestStatusType = any
 
@@ -25,6 +26,8 @@ export const loginReducer = (state = initialState, action: ActionsType): Initial
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
+
+
         default:
             return state
     }
@@ -50,14 +53,22 @@ export const loginTC = ({email, password, rememberMe}: LoginParamsType) => async
         dispatch(setIsInitializedAC(true))
 
         const error = e.response
-            ? e.response.data.error
+            ? dispatch(setLoginErrorAC(e.response.data.error))
             : (e.message + ', more details in the console');
-
         console.log('Error: ', {...e})
     }
 }
-export const logoutTC = () => async (dispatch: Dispatch<any>) => {
+export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
+    try {
+        const res = await authAPI.logOut()
+        if (res.statusText === "OK") {
+            dispatch(setIsLoggedInAC(false))
 
+        }
+
+    } catch (e) {
+
+    }
 }
 
 

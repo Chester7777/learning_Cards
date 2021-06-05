@@ -31,7 +31,8 @@ const Registration = () => {
                     </div>
                     <Button
                         label={'Sign Up'}
-                        backgroundColor={'blue'}/>
+                        primary={true}
+                        />
                 </form>
             </div>
         </div>
