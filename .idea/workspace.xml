@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ded00531-9241-4cf9-90a9-1812b2071c69" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/common/validators.ts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/n1-main/m1-ui/components/login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/n1-main/m1-ui/components/login/Login.tsx" afterDir="false" />
     </list>
@@ -41,8 +40,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/n1-main/m1-ui/common/Loader" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../socialTC/social-ts" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="D:\react\itincubator\friday\learning_Cards\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -81,7 +81,10 @@
       <workItem from="1622641954409" duration="9033000" />
       <workItem from="1622658290903" duration="2801000" />
       <workItem from="1622710976456" duration="14546000" />
-      <workItem from="1622729019615" duration="7888000" />
+      <workItem from="1622729019615" duration="8200000" />
+      <workItem from="1622750492097" duration="1411000" />
+      <workItem from="1622819369845" duration="5383000" />
+      <workItem from="1622920437968" duration="2191000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1622384273881</created>
@@ -132,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622724780531</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="validation">
+      <created>1622737231814</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1622737231814</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,14 +166,14 @@
     <MESSAGE value="adaptiv css" />
     <MESSAGE value="adaptiv css for registration" />
     <MESSAGE value=" css for button" />
-    <option name="LAST_COMMIT_MESSAGE" value=" css for button" />
+    <MESSAGE value="validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="validation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/n1-main/m1-ui/common/validators.ts.js</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -116,6 +116,7 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
                         onClick={onClickLoginButton}
                         label={'Login'}
                     />
+
                     <div className={s.errorText}>{error}</div>
 
                 </form>
