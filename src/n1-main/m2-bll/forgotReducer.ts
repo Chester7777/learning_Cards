@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {cardAPI} from "../m3-dal/forgot-api";
+import {PasswordAPI} from "../m3-dal/forgot-api";
 
 
 type InitialStateType = {
@@ -10,6 +10,8 @@ type InitialStateType = {
     from: string
     email: string
     message: string
+    password: string
+    resetPasswordToken: string
 }
 
 const initialState: InitialStateType = {
@@ -20,6 +22,8 @@ const initialState: InitialStateType = {
     from: "",
     email: "",
     message: "",
+    password: "",
+    resetPasswordToken: ""
 }
 
 //Reducer
@@ -37,6 +41,12 @@ export const forgotReducer = (state = initialState, action: any): any => {
                 ...state,
                 error: action.error
             }
+        case "RESET-PASSWORD":
+            return {
+                ...state,
+                password: action.password,
+                resetPasswordToken: action.resetPasswordToken
+            }
         default:
             return state
     }
@@ -45,16 +55,19 @@ export const forgotReducer = (state = initialState, action: any): any => {
 // actions
 export const setForgotPassword = (email: string, message: string, from: string) => ({
     type: "SET-FORGOT-PASSWORD", email, message, from
-} as const)
+} as const);
+export const resetPassword = (password: string, resetPasswordToken: string) => ({
+    type: "RESET-PASSWORD", password, resetPasswordToken
+} as const);
 export const setForgotPasswordError = (error: string | null) => ({
-    type: "SET-FORGOT-PASSWORD-ERROR",
-    error
-} as const)
+    type: "SET-FORGOT-PASSWORD-ERROR", error
+} as const);
+
 
 // thunks
 export const forgotPasswordTC = (email: string, message: string, from: string) => async (dispatch: Dispatch) => {
 
-   await cardAPI.forgotPassword(email)
+    await PasswordAPI.forgotPassword(email)
     try {
         dispatch(setForgotPassword(email, message, from))
     } catch (error) {
@@ -64,8 +77,13 @@ export const forgotPasswordTC = (email: string, message: string, from: string) =
 }
 
 
-export const authMeTC = () => (dispatch: any) => {
-
+export const resetNewPassword = (password: string, resetPasswordToken: string) => async (dispatch: any) => {
+    await PasswordAPI.resetPassword(password, resetPasswordToken)
+    try {
+        dispatch(resetPassword(password, resetPasswordToken))
+    } catch (error) {
+        setForgotPasswordError(error.error)
+    }
 }
 
 

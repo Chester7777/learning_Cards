@@ -1,37 +1,40 @@
 import React, {useCallback, useState} from 'react';
 import {Button} from '../../common/Button/Button';
 import {useDispatch, useSelector} from "react-redux";
-import {forgotPasswordTC} from "../../../m2-bll/forgotReducer";
+import {forgotPasswordTC, resetNewPassword} from "../../../m2-bll/forgotReducer";
 import {AppRootStateType} from "../../../m2-bll/store";
 import s from "./ForgotPassword.module.css"
+import { useParams } from 'react-router-dom';
 
 
-const ForgotPassword = React.memo(function ForgotPassword() {
+const NewPassword = React.memo(function ForgotPassword() {
 
     const dispatch = useDispatch();
-    const message = useSelector((state: AppRootStateType) => state.forgotPassword.message);
-    const from = useSelector((state: AppRootStateType) => state.forgotPassword.from)
+    const resetPasswordToken = useSelector((state: AppRootStateType) => state.forgotPassword.resetPasswordToken);
+    // const from = useSelector((state: AppRootStateType) => state.forgotPassword.from);
+    const {token} = useParams<{token: string}>();
 
 
-    const [email, setEmail]= useState<string>("");
+    const [password, setPassword]= useState<string>("");
 
 
     const handleChange =(e:React.FormEvent<HTMLInputElement>)=> {
         if (e.currentTarget.value && e.currentTarget.value.trim() !== ""){
-            setEmail(e.currentTarget.value);
+            setPassword(e.currentTarget.value);
         }
     }
 
-    const onClickBtn = useCallback(() => {
-        dispatch(forgotPasswordTC(email, message, from))
-        setEmail('')}, [email, dispatch])
+    const onClickBtn = useCallback((event) => {
+        event.preventDefault()
+        dispatch(resetNewPassword(password, resetPasswordToken))
+        setPassword('')}, [password, dispatch])
 
     return (
         <div className={s.forgotPasswordBlock} style={{marginTop:"25px"}}>
-            Enter your email
+            Enter new password
             <input
                 onChange={handleChange}
-                type="email"
+                type="password"
                 style={{display:"block", marginLeft: "auto", marginRight:'auto', marginBottom:"5px", marginTop:"5px"}}
             />
                 <Button  onClick={onClickBtn} size={'small'} label={"Forgot Password"} backgroundColor={"rgb(100 214 124)"} />
@@ -41,4 +44,4 @@ const ForgotPassword = React.memo(function ForgotPassword() {
 })
 
 
-export default ForgotPassword;
+export default NewPassword;

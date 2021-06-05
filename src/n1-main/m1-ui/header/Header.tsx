@@ -20,8 +20,17 @@ const Header = () => {
             <div className={s.item}>
                 <NavLink to='/Registration' activeClassName={s.active}>Registration</NavLink>
             </div>
+            {/*{!isLoggedIn ? <div className={s.item}>*/}
+            {/*    <NavLink to='/forgot-password' activeClassName={s.active}>Forgot Password</NavLink>*/}
+            {/*</div> :*/}
+            {/*    <div className={s.item}>*/}
+            {/*        <NavLink to='/new-password/:token' activeClassName={s.active}>New Password</NavLink>*/}
+            {/*    </div>} */}
             <div className={s.item}>
                 <NavLink to='/forgot-password' activeClassName={s.active}>Forgot Password</NavLink>
+            </div>
+            <div className={s.item}>
+                <NavLink to='/forgot-password#/new-password/:token' activeClassName={s.active}>New Password</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to='/Profile' activeClassName={s.active}>Profile</NavLink>

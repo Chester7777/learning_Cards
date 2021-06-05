@@ -7,6 +7,7 @@ import Profile from '../components/profile/Profile';
 import {Login} from '../components/login/Login';
 import Packs from '../components/packs/Packs';
 import Cards from '../components/cards/Cards';
+import NewPassword from '../components/forgotPassword/NewPassword';
 
 
 const Routes = () => {
@@ -16,6 +17,7 @@ const Routes = () => {
                 <Route exact path={'/'} render={() => <div> Hello</div>}/>
                 <Route exact path={'/registration'} render={() => <Registration/>}/>
                 <Route exact path={'/forgot-password'} render={() => <ForgotPassword/>}/>
+                <Route exact path={'/forgot-password#/new-password/:token'} render={() => <NewPassword/>}/>
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
                 <Route exact path={'/login'} render={() => <Login/>}/>
                 <Route exact path={'/packs'} render={() => <Packs/>}/>
