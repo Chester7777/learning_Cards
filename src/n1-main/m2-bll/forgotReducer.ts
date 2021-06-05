@@ -67,24 +67,37 @@ export const setForgotPasswordError = (error: string | null) => ({
 // thunks
 export const forgotPasswordTC = (email: string, message: string, from: string) => async (dispatch: Dispatch) => {
 
-    await PasswordAPI.forgotPassword(email)
+
     try {
+        await PasswordAPI.forgotPassword(email)
         dispatch(setForgotPassword(email, message, from))
     } catch (error) {
-        setForgotPasswordError(error.error)
+       return setForgotPasswordError(error.data.error)
     }
 
 }
 
+// export const logout = createAsyncThunk('auth/logout', async (param, thunkAPI) => {
+//     thunkAPI.dispatch(setAppStatus({status: 'loading'}))
+//     try {
+//         const res = await authAPI.logout()
+//         if (res.data.resultCode === 0) {
+//             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
+//             return
+//         } else {
+//             return handleAsyncServerAppError(res.data, thunkAPI)
+//         }
+//     } catch (error) {
+//         return handleAsyncServerNetworkError(error, thunkAPI)
+//     }
+// })
 
 export const resetNewPassword = (password: string, resetPasswordToken: string) => async (dispatch: any) => {
     try {
-        let respons = await PasswordAPI.resetPassword(password, resetPasswordToken)
-        debugger
+        const res = await PasswordAPI.resetPassword(password, resetPasswordToken)
         dispatch(resetPassword(password, resetPasswordToken))
     } catch (error) {
-        debugger
-        setForgotPasswordError(error.data.error)
+      return   setForgotPasswordError(error.data.error)
     }
 }
 

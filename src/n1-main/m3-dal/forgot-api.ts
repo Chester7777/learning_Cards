@@ -18,7 +18,6 @@ export const PasswordAPI = {
         instance.post<ForgotPasswordType>("auth/forgot", {email, message, from})
     },
     resetPassword (password: string, resetPasswordToken: string) {
-        debugger
         instance.post<ResetPasswordType>(`auth/set-new-password`, {password, resetPasswordToken})
     }
 }
