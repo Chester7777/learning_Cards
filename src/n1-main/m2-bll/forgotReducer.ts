@@ -78,11 +78,13 @@ export const forgotPasswordTC = (email: string, message: string, from: string) =
 
 
 export const resetNewPassword = (password: string, resetPasswordToken: string) => async (dispatch: any) => {
-    await PasswordAPI.resetPassword(password, resetPasswordToken)
     try {
+        let respons = await PasswordAPI.resetPassword(password, resetPasswordToken)
+        debugger
         dispatch(resetPassword(password, resetPasswordToken))
     } catch (error) {
-        setForgotPasswordError(error.error)
+        debugger
+        setForgotPasswordError(error.data.error)
     }
 }
 

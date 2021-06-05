@@ -12,12 +12,13 @@ const instance = axios.create({
 
 export const PasswordAPI = {
     forgotPassword(email: string) {
-        const message = `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='https://chester7777.github.io/learning_Cards/#/new-password/$token$'> link</a></div>`
-        // const message = `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='http://localhost:3001/forgot-password#/new-password/:token/$token$'> link</a></div>`
+        // const message = `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='https://chester7777.github.io/learning_Cards/#/new-password/$token$'> link</a></div>`
+        const message = `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='http://localhost:3001/forgot-password#/new-password/$token$'> link</a></div>`
         const from = "test-front-admin <Es18.03.88@gmail.com>"
         instance.post<ForgotPasswordType>("auth/forgot", {email, message, from})
     },
     resetPassword (password: string, resetPasswordToken: string) {
+        debugger
         instance.post<ResetPasswordType>(`auth/set-new-password`, {password, resetPasswordToken})
     }
 }

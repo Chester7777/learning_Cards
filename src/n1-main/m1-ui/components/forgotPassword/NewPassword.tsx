@@ -13,7 +13,7 @@ const NewPassword = React.memo(function ForgotPassword() {
     const resetPasswordToken = useSelector((state: AppRootStateType) => state.forgotPassword.resetPasswordToken);
     // const from = useSelector((state: AppRootStateType) => state.forgotPassword.from);
     const {token} = useParams<{token: string}>();
-
+    
 
     const [password, setPassword]= useState<string>("");
 
@@ -26,12 +26,12 @@ const NewPassword = React.memo(function ForgotPassword() {
 
     const onClickBtn = useCallback((event) => {
         event.preventDefault()
-        dispatch(resetNewPassword(password, resetPasswordToken))
+        dispatch(resetNewPassword(password, token))
         setPassword('')}, [password, dispatch])
 
     return (
         <div className={s.forgotPasswordBlock} style={{marginTop:"25px"}}>
-            Enter new password
+            Enter new password !{token}!
             <input
                 onChange={handleChange}
                 type="password"

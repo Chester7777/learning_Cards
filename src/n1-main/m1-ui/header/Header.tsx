@@ -30,7 +30,7 @@ const Header = () => {
                 <NavLink to='/forgot-password' activeClassName={s.active}>Forgot Password</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/forgot-password#/new-password/:token' activeClassName={s.active}>New Password</NavLink>
+                <NavLink to='/new-password' activeClassName={s.active}>New Password</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to='/Profile' activeClassName={s.active}>Profile</NavLink>
