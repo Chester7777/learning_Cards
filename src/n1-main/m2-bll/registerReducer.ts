@@ -40,7 +40,6 @@ export const setErrorAC = (text: string) => ({
 // thunks
 
 export const SendRegisterTC = (email:string, password: string) => (dispatch: Dispatch<RegistrationActionsType>) => {
-    debugger
     authAPI.signUp(email, password)
         .then( (res) => {
             if (res.statusText === 'succeeded')
