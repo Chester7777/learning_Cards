@@ -3,7 +3,7 @@ import {PasswordAPI} from "../m3-dal/forgot-api";
 
 
 type InitialStateType = {
-    status: string
+    info: string
     error: string | null
     isInitialized: boolean
     forgotPassword: false
@@ -15,7 +15,7 @@ type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    status: 'idle',
+    info: '',
     error: null,
     isInitialized: true,
     forgotPassword: false,
@@ -27,7 +27,7 @@ const initialState: InitialStateType = {
 }
 
 //Reducer
-export const forgotReducer = (state = initialState, action: any): any => {
+export const forgotReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "SET-FORGOT-PASSWORD":
             return {
@@ -36,16 +36,21 @@ export const forgotReducer = (state = initialState, action: any): any => {
                 message: action.message,
                 from: action.from
             }
-        case "SET-FORGOT-PASSWORD-ERROR":
-            return {
-                ...state,
-                error: action.error
-            }
         case "RESET-PASSWORD":
             return {
                 ...state,
                 password: action.password,
                 resetPasswordToken: action.resetPasswordToken
+            }
+        case "RESET-PASSWORD-INFO":
+            return {
+                ...state,
+                info: action.info
+            }
+        case "SET-FORGOT-PASSWORD-ERROR":
+            return {
+                ...state,
+                error: action.error
             }
         default:
             return state
@@ -59,6 +64,9 @@ export const setForgotPassword = (email: string, message: string, from: string) 
 export const resetPassword = (password: string, resetPasswordToken: string) => ({
     type: "RESET-PASSWORD", password, resetPasswordToken
 } as const);
+export const resetPasswordInfo = (info: any) => ({
+    type: "RESET-PASSWORD-INFO", info
+} as const);
 export const setForgotPasswordError = (error: string | null) => ({
     type: "SET-FORGOT-PASSWORD-ERROR", error
 } as const);
@@ -67,42 +75,37 @@ export const setForgotPasswordError = (error: string | null) => ({
 // thunks
 export const forgotPasswordTC = (email: string, message: string, from: string) => async (dispatch: Dispatch) => {
 
-
     try {
         await PasswordAPI.forgotPassword(email)
         dispatch(setForgotPassword(email, message, from))
     } catch (error) {
-       return setForgotPasswordError(error.data.error)
+        dispatch(setForgotPasswordError(error.response.data.error))
     }
-
 }
 
-// export const logout = createAsyncThunk('auth/logout', async (param, thunkAPI) => {
-//     thunkAPI.dispatch(setAppStatus({status: 'loading'}))
-//     try {
-//         const res = await authAPI.logout()
-//         if (res.data.resultCode === 0) {
-//             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-//             return
-//         } else {
-//             return handleAsyncServerAppError(res.data, thunkAPI)
-//         }
-//     } catch (error) {
-//         return handleAsyncServerNetworkError(error, thunkAPI)
-//     }
-// })
 
-export const resetNewPassword = (password: string, resetPasswordToken: string) => async (dispatch: any) => {
+export const resetNewPassword = (password: string, resetPasswordToken: string) => async (dispatch: Dispatch) => {
     try {
         const res = await PasswordAPI.resetPassword(password, resetPasswordToken)
-        dispatch(resetPassword(password, resetPasswordToken))
+        if (res.data.info == "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
+            dispatch(resetPasswordInfo(res.data.info))
+        }
+
     } catch (error) {
-      return   setForgotPasswordError(error.data.error)
+        console.log(error)
+        debugger
+        dispatch(setForgotPasswordError(error.response.data.error))
     }
 }
 
 
 // types
-type ActionsType = any
+export type ActionsType =
+    ReturnType<typeof setForgotPassword> |
+    ReturnType<typeof resetPassword> |
+    ReturnType<typeof resetPasswordInfo> |
+    ReturnType<typeof setForgotPasswordError>
+
+
 
 
