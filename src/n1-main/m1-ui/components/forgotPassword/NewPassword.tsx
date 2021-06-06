@@ -34,18 +34,8 @@ const NewPassword = React.memo(function ForgotPassword() {
         setPassword('')
     }, [password, dispatch])
 
-    // if (info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
     if (info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
         return <Redirect to={"/login"}/>
-        // return (
-        //     <div>
-        //         <div>
-        //             <p> !!!Success!!! <br/>
-        //                 Please send your email and new password</p>
-        //         </div>
-        //         <NavLink to='/login'>Login</NavLink>
-        //     </div>
-        // )
     } 
 
     return (

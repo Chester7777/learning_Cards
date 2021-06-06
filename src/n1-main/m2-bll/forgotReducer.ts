@@ -97,18 +97,6 @@ export const resetNewPassword = (password: string, resetPasswordToken: string) =
         dispatch(setForgotPasswordError(error.response.data.error))
     }
 }
-// export const resetNewPassword = (password: string, resetPasswordToken: string) => (dispatch: Dispatch) => {
-//     return PasswordAPI.resetPassword(password, resetPasswordToken)
-//         .then(res => {
-//             dispatch(resetPasswordInfo(res.data.info))
-//             console.log(res)
-//         })
-//         .catch((error)=> {
-//             debugger
-//             dispatch(setForgotPasswordError(error.data.error))
-//         })
-// }
-
 
 
 // types
