@@ -29,7 +29,7 @@ const Registration = () => {
         <div className={s.registerBlock}>
             <p> Please fill in the blank fields and press sign up </p>
 
-            <form>
+            <form className={s.registerForm}>
                 <div className={s.registerForm}>
                     <label htmlFor={'email'}>Email</label>
                     <div className={s.register}>
@@ -61,6 +61,8 @@ const Registration = () => {
                         />
                     </div>
                     <Button
+                        primary={true}
+
                         onClick={handleSubmit}
                         label={'Sign Up'}
                         backgroundColor={'blue'}/>
