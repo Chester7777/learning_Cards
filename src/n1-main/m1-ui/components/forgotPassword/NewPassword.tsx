@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {Button} from '../../common/Button/Button';
 import {useDispatch, useSelector} from "react-redux";
-import {forgotPasswordTC, resetNewPassword, setForgotPasswordError} from "../../../m2-bll/forgotReducer";
+import {forgotPasswordTC, resetNewPassword, resetPasswordInfo, setForgotPasswordError} from "../../../m2-bll/forgotReducer";
 import {AppRootStateType} from "../../../m2-bll/store";
 import s from "./ForgotPassword.module.css";
 import {useParams} from 'react-router-dom';

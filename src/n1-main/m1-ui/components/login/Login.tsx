@@ -8,7 +8,8 @@ import {AppRootStateType} from "../../../m2-bll/store";
 import {Redirect} from "react-router-dom";
 import Profile from "../profile/Profile";
 import {Simulate} from "react-dom/test-utils";
-import {minMaxLength, validEmail } from "../../common/validators.ts";
+import {minMaxLength, validEmail} from "../../common/validators.ts";
+import { resetPasswordInfo, setForgotPasswordError } from "../../../m2-bll/forgotReducer";
 
 type  LoginContentPropsType = {
 
@@ -22,9 +23,11 @@ export const Login = () => {
         dispatch(loginTC({email, password, rememberMe}))
     }
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+
     if (isLoggedIn) {
         return <Redirect to={'/Profile'}/>
     }
+
     return <LoginContent onClickHandler={onClickHandler}/>
 
 
@@ -38,28 +41,26 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rememberMe, setRememberMe] = useState(false)
-    const [emailError,setEmailError]=useState('')
-    const [passwordError,setPasswordError]=useState('')
+    const [emailError, setEmailError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
 
- const onchangeEmailHandler=(e: React.ChangeEvent<HTMLInputElement>)=>{
-        if(e.currentTarget.value &&validEmail(e.currentTarget.value)){
+    const onchangeEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.value && validEmail(e.currentTarget.value)) {
             setEmail(e.currentTarget.value)
             setEmailError('')
 
-        }
-        else    {
+        } else {
             setEmailError('Email not valid!')
             setEmail(e.currentTarget.value)
 
         }
- }
-    const onchangePasswordHandler=(e: React.ChangeEvent<HTMLInputElement>)=>{
-        if(e.currentTarget.value && minMaxLength(e.currentTarget.value,5)){
+    }
+    const onchangePasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.value && minMaxLength(e.currentTarget.value, 5)) {
             setPassword(e.currentTarget.value)
             setPasswordError('')
 
-        }
-        else    {
+        } else {
             setPasswordError('password not valid!')
             setPassword(e.currentTarget.value)
 
@@ -72,7 +73,17 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
 
     const error = useSelector<AppRootStateType, string>(state => state.profile.error)
 
-        return (
+    //отобразить сообщение при успешной смене пароля
+    // const dispatch = useDispatch()
+    // const info = useSelector<AppRootStateType, string>(state => state.forgotPassword.info)
+    // if (info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
+    //     debugger
+    //     dispatch(resetPasswordInfo(info))
+    // } else {
+    //     dispatch(setForgotPasswordError(error))
+    // }
+
+    return (
         <div className={s.background}>
             <div className={s.registerBlock}>
                 <p> Please fill in the blank fields and press Login </p>
@@ -115,9 +126,9 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
                         onClick={onClickLoginButton}
                         label={'Login'}
                     />
-
-                    <div className={s.errorText}>{error}</div>
-
+                    <div className={s.errorText}><p>{error}</p></div>
+                    {/*отобразить сообщение при успешной смене пароля*/}
+                    {/*<div className={s.errorText}><p>{info}</p></div>*/}
                 </form>
             </div>
 
