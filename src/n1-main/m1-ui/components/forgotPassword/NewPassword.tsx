@@ -11,7 +11,6 @@ import {NavLink, Redirect} from 'react-router-dom';
 const NewPassword = React.memo(function ForgotPassword() {
 
     const dispatch = useDispatch();
-    // const resetPasswordToken = useSelector((state: AppRootStateType) => state.forgotPassword.resetPasswordToken);
     const info = useSelector((state: AppRootStateType) => state.forgotPassword.info);
     const error = useSelector((state: AppRootStateType) => state.forgotPassword.error);
     const {token} = useParams<{ token: string }>();
