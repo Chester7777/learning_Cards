@@ -30,7 +30,6 @@ export const Login = () => {
 
 }
 
-
 const LoginContent: React.FC<LoginContentPropsType> = ({
                                                            onClickHandler
 

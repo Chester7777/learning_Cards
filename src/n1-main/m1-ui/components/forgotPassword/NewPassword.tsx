@@ -1,46 +1,53 @@
 import React, {useCallback, useState} from 'react';
 import {Button} from '../../common/Button/Button';
 import {useDispatch, useSelector} from "react-redux";
-import {forgotPasswordTC, setForgotPasswordError} from "../../../m2-bll/forgotReducer";
+import {forgotPasswordTC, resetNewPassword, setForgotPasswordError} from "../../../m2-bll/forgotReducer";
 import {AppRootStateType} from "../../../m2-bll/store";
-import s from "./ForgotPassword.module.css"
+import s from "./ForgotPassword.module.css";
+import {useParams} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 
 
-const ForgotPassword = React.memo(function ForgotPassword() {
+const NewPassword = React.memo(function ForgotPassword() {
 
     const dispatch = useDispatch();
-    const message = useSelector((state: AppRootStateType) => state.forgotPassword.message);
-    const from = useSelector((state: AppRootStateType) => state.forgotPassword.from);
+    const info = useSelector((state: AppRootStateType) => state.forgotPassword.info);
     const error = useSelector((state: AppRootStateType) => state.forgotPassword.error);
+    const {token} = useParams<{ token: string }>();
 
 
-    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
 
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         if (e.currentTarget.value && e.currentTarget.value.trim() !== "") {
-            setEmail(e.currentTarget.value);
+            setPassword(e.currentTarget.value);
         } else {
-            dispatch(setForgotPasswordError(error))
+            dispatch(setForgotPasswordError(error));
         }
     }
 
-    const onClickBtn = useCallback(() => {
-        dispatch(forgotPasswordTC(email, message, from))
-        setEmail('')
-    }, [email, dispatch])
+    const onClickBtn = useCallback((event) => {
+        event.preventDefault()
+        dispatch(resetNewPassword(password, token))
+        setPassword('')
+    }, [password, dispatch])
+
+    if (info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
+        return <Redirect to={"/login"}/>
+    } 
 
     return (
         <div className={s.forgotPasswordBlock}>
             <div className={s.registerBlock}>
-                <p> Please enter your email and press "Forgot password" </p>
+                <p> Please enter new password and press "Forgot password" </p>
                 <div className={s.registerForm}>
-                    <label htmlFor={'email'}>Email nya-admin@nya.nya</label>
+                    <label htmlFor={'password'}>Password ********</label>
                     <div className={s.register}>
                         <input
                             onChange={handleChange}
                             className={s.registerFormInput}
-                            type="email"
+                            type="password"
                             style={{
                                 display: "block",
                                 marginLeft: "auto",
@@ -61,4 +68,4 @@ const ForgotPassword = React.memo(function ForgotPassword() {
 })
 
 
-export default ForgotPassword;
+export default NewPassword;

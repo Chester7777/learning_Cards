@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 
 })
@@ -16,7 +16,13 @@ export const authAPI = {
          },
     me(){
         return instance.post('auth/me')
-    }
+    },
+
+
+    signUp(email: string, password: string) {
+        return instance.post<{ addedUser: ResponceLoginType, error?: string }>('auth/register', {email, password})
+    },
+
 }
 
 
@@ -37,8 +43,8 @@ export type ResponceLoginType = {
     name: string;
     avatar?: string;
     publicCardPacksCount: number; // количество колод
-    created: string;
-    updated: string;
+    created: string; // need Data
+    updated: string; // need Data
     isAdmin: boolean;
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
@@ -49,3 +55,8 @@ export type ResponceLogOutType = {
     info: string;
     error: string;
 }
+export type SignUpParamsType = {
+    email: string
+    password: string
+}
+
