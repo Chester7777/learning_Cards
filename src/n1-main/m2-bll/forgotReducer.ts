@@ -93,7 +93,6 @@ export const resetNewPassword = (password: string, resetPasswordToken: string) =
 
     } catch (error) {
         console.log(error)
-        debugger
         dispatch(setForgotPasswordError(error.response.data.error))
     }
 }

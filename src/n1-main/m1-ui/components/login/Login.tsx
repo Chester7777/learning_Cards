@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 import Profile from "../profile/Profile";
 import {Simulate} from "react-dom/test-utils";
 import {minMaxLength, validEmail} from "../../common/validators.ts";
-import { resetPasswordInfo, setForgotPasswordError } from "../../../m2-bll/forgotReducer";
+import {resetPasswordInfo, setForgotPasswordError} from "../../../m2-bll/forgotReducer";
 
 type  LoginContentPropsType = {
 
@@ -44,6 +44,13 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
 
+    const dispatch = useDispatch()
+    const info = useSelector<AppRootStateType, string>(state => state.forgotPassword.info)
+    const error = useSelector<AppRootStateType, string>(state => state.profile.error)
+
+
+
+
     const onchangeEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value && validEmail(e.currentTarget.value)) {
             setEmail(e.currentTarget.value)
@@ -71,17 +78,12 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
         onClickHandler({email, password, rememberMe})
     }
 
-    const error = useSelector<AppRootStateType, string>(state => state.profile.error)
-
     //отобразить сообщение при успешной смене пароля
-    // const dispatch = useDispatch()
-    // const info = useSelector<AppRootStateType, string>(state => state.forgotPassword.info)
-    // if (info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
-    //     debugger
-    //     dispatch(resetPasswordInfo(info))
-    // } else {
-    //     dispatch(setForgotPasswordError(error))
-    // }
+    if (info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
+        dispatch(resetPasswordInfo(info))
+    } else {
+        dispatch(setForgotPasswordError(error))
+    }
 
     return (
         <div className={s.background}>
@@ -128,15 +130,13 @@ const LoginContent: React.FC<LoginContentPropsType> = ({
                     />
                     <div className={s.errorText}><p>{error}</p></div>
                     {/*отобразить сообщение при успешной смене пароля*/}
-                    {/*<div className={s.errorText}><p>{info}</p></div>*/}
+                    <div className={s.errorText}><p>{info}</p></div>
                 </form>
             </div>
 
         </div>
 
     )
-
-
 }
 
 

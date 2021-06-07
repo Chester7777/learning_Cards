@@ -15,23 +15,15 @@ export const PasswordAPI = {
         const message = `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='https://chester7777.github.io/learning_Cards/#/new-password/$token$'> link</a></div>`
         // const message = `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='http://localhost:3001/forgot-password#/new-password/$token$'> link</a></div>`
         const from = "test-front-admin <Es18.03.88@gmail.com>"
-       return instance.post<any>("auth/forgot", {email, message, from})
+       return instance.post<ResetPasswordType>("auth/forgot", {email, message, from})
     },
     resetPassword (password: string, resetPasswordToken: string) {
-      return instance.post<any>(`auth/set-new-password`, {password, resetPasswordToken})
+      return instance.post<ResetPasswordType>(`auth/set-new-password`, {password, resetPasswordToken})
     }
 }
 
-// type ForgotPasswordType = {
-//     data: {
-//         email: string
-//         from: string
-//         message: string
-//     }
-// }
+
 type ResetPasswordType = {
-   data: {
        info: string
        error: string
-   }
 }

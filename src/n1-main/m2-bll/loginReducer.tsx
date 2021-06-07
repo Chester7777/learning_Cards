@@ -26,8 +26,6 @@ export const loginReducer = (state = initialState, action: ActionsType): Initial
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
-
-
         default:
             return state
     }
@@ -63,9 +61,7 @@ export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
         const res = await authAPI.logOut()
         if (res.statusText === "OK") {
             dispatch(setIsLoggedInAC(false))
-
         }
-
     } catch (e) {
 
     }

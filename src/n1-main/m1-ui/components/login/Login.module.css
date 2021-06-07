@@ -84,6 +84,11 @@
     color: red;
     margin-bottom: 5px;
 }
+.errorText p {
+    height: 20px;
+    color: forestgreen;
+    margin-bottom: 5px;
+}
 
 .check {
     opacity: 1;

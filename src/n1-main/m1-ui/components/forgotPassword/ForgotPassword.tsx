@@ -50,8 +50,7 @@ const ForgotPassword = React.memo(function ForgotPassword() {
                             }}
                         />
                     </div>
-                    <Button onClick={onClickBtn} size={'small'} label={"Forgot Password"}
-                            backgroundColor={"rgb(100 214 124)"}/>
+                    <Button primary={true} onClick={onClickBtn} size={'small'} label={"Forgot Password"}/>
                 </div>
                 <div className={s.errorText}>{error}</div>
             </div>
