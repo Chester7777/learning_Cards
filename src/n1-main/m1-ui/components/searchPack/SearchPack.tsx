@@ -3,10 +3,25 @@ import React from "react";
 import {Button} from "../../common/Button/Button";
 import s from './searchPack.module.css';
 import 'antd/dist/antd.css';
+import {useDispatch, useSelector} from "react-redux";
+import {getPacksTC, setPacksError} from "../../../m2-bll/packReducer";
+import {AppRootStateType} from "../../../m2-bll/store";
 
 
 export let SearchPack = () => {
-
+    // const dispatch = useDispatch();
+    // const cardPacks = useSelector((state: AppRootStateType) => state.packs.cardPacks);
+    // const error = useSelector((state: AppRootStateType) => state.packs.error);
+    //
+    // const getPacksCallback = () => {
+    //     if (cardPacks) {
+    //         debugger
+    //         dispatch(getPacksTC(cardPacks))
+    //     } else {
+    //         debugger
+    //         dispatch(setPacksError(error))
+    //     }
+    // }
 
 
     return (
@@ -18,6 +33,7 @@ export let SearchPack = () => {
                 />
             </div>
             <Button
+                // onClick={getPacksCallback}
                 label={'Search'}
                 backgroundColor={'blue'}
             />
@@ -25,6 +41,7 @@ export let SearchPack = () => {
                 <Slider className={s.slider} range={{draggableTrack: true}}
                         defaultValue={[0, 10]}/>
             </div>
+            {/*<div>{error}</div>*/}
         </div>
     )
 }
