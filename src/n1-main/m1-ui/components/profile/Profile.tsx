@@ -12,6 +12,7 @@ const Profile =React.memo(function (){
     const ava = useSelector<AppRootStateType, string>(state => state.profile.avatar)
     const email = useSelector<AppRootStateType, string>(state => state.profile.email)
     const created = useSelector<AppRootStateType, string>(state => state.profile.created)
+    const id = useSelector<AppRootStateType, string>(state => state.profile._id)
     const publicCardPacksCount = useSelector<AppRootStateType, string>(state => state.profile.publicCardPacksCount)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
@@ -45,6 +46,10 @@ const Profile =React.memo(function (){
                         <div className={s.titles}>Card Packs:</div>
                         <div className={s.info}>{publicCardPacksCount}</div>
                     </div>
+                    <div className={s.infoBlock}>
+                        <div className={s.titles}>userID:</div>
+                        <div className={s.info}>{id}</div>
+                    </div>
                     <Button primary={true} onClick={logOutHandler} label={"LogOut"}/>
 
                 </div>
@@ -54,8 +59,8 @@ const Profile =React.memo(function (){
 
     );
 
-}
-)
+})
 
 export default Profile;
+
 

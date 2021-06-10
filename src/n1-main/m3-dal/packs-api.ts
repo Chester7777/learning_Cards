@@ -11,14 +11,28 @@ const instance = axios.create({
 })
 
 export const PacksAPI = {
-    getPacks (page: number) {
-       return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=10&page=${page}&user_id=` )
+    getPacks (page: number,userID:string) {
+       return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=10&page=${page}&user_id=${userID}` )
     },
+    deletePack(id:string){
+        return instance.delete(`/cards/pack?id=${id}`)
+    },
+    postPack(objcardsPack:cardsPackTypeobj<cardPackPostType>){
+        return instance.post('/cards/pack',objcardsPack)
+    },
+    updatePack(objUpdatePack:cardsPackTypeobj<updatePackType>){
+        return instance.put('/cards/pack',objUpdatePack)
+    }
+
     // resetPassword (password: string, resetPasswordToken: string) {
     //   return instance.post<ResetPasswordType>(`auth/set-new-password`, {password, resetPasswordToken})
     // }
 }
 
+export type updatePackType={
+    _id: string
+    name?: string // не обязательно
+}
 export type GetCardPackResponseType = {
     // pageCount: number
     cardPacks : Array<CardPackType>
@@ -28,6 +42,9 @@ export type GetCardPackResponseType = {
     minCardsCount: number
     pageCount: number
 }
+export type cardsPackTypeobj<D> ={
+    cardsPack:D
+};
 
 export  type CardPackType = {
     "_id": string
@@ -45,4 +62,16 @@ export  type CardPackType = {
     "updated": string
     "more_id": string
     "__v": number
+}
+
+export type cardPackPostType ={
+
+        name?: string // если не отправить будет таким
+        path?: string     //"/def" // если не отправить будет такой
+        grade?: number // не обязателен
+        shots?: number // не обязателен
+        rating?: number // не обязателен
+        deckCover?: string     // "url or base64" // не обязателен
+        private?: boolean // fals если не отправить будет такой
+        type?: string      ////"pack" // если не отправить будет таким
 }

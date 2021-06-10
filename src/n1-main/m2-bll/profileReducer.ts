@@ -16,7 +16,7 @@ type profileStateType={
     rememberMe: boolean,
     error: string
 }
-const initialState = {
+const initialState:profileStateType = {
     _id: '',
     email: '',
     name: '',
@@ -29,6 +29,7 @@ const initialState = {
     rememberMe: false,
     error: ''
 }
+// type stateType=ReturnType<typeof initialState>
 
 type ActionsType = ReturnType<typeof setProfileDataAC>
     |ReturnType<typeof logOutAC>

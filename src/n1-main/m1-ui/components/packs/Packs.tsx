@@ -1,17 +1,32 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import s from './Packs.module.css'
 import {Button} from "../../common/Button/Button";
 import {SearchPack} from "../searchPack/SearchPack";
 import {Paginator} from "../searchPack/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store";
-import {getPacksTC, setPacksError} from "../../../m2-bll/packReducer";
+import {addPackTC, deletePackTC, getPacksTC, setPacksError, unpdatePackTC} from "../../../m2-bll/packReducer";
 import {NavLink} from "react-router-dom";
-import {CardPackType} from "../../../m3-dal/packs-api";
+import {cardPackPostType, CardPackType, cardsPackTypeobj, updatePackType} from "../../../m3-dal/packs-api";
+import Loading from "../../common/Loader/Loading";
 
 
-const Packs = () => {
+const PacksContainer = () => {
+    ///это для того чтоб загржались свои карточки а не игната, чтоб работало раскоментировать
+    const userID = useSelector<AppRootStateType, string>(state => state.profile._id)
+    if (!userID) {
+        return <Loading/>
+    }
 
+    return <Packs userID={userID}/>
+}
+
+
+type PropsType = {
+    userID: string
+}
+
+const Packs = ({userID}: PropsType) => {
     const dispatch = useDispatch();
     const cardPacks = useSelector<AppRootStateType, Array<CardPackType>>((state: AppRootStateType) => state.packs.cardPacks);
     const error = useSelector((state: AppRootStateType) => state.packs.error);
@@ -20,10 +35,11 @@ const Packs = () => {
     const page = useSelector((state: AppRootStateType) => state.packs.page);
     // const created = useSelector<AppRootStateType, Array<CardPackType>>((state: AppRootStateType) => state.packs.cardPacks[0].created);
 
-
     useEffect(() => {
-        dispatch(getPacksTC(page, cardPacks))
-    }, [dispatch, page, cardPacks])
+        dispatch(getPacksTC(page, userID))  ///для получения своих карт по своему ид
+        // dispatch(getPacksTC(page, ''))
+
+    }, [userID])
 
     // if (cardPacks) {
     //     debugger
@@ -32,12 +48,17 @@ const Packs = () => {
     //     dispatch(setPacksError(error))
     // }
     const addPackTitle = () => {
+        const newcard: cardsPackTypeobj<cardPackPostType> = {cardsPack: {name: "my fucj cart"}}
+        dispatch(addPackTC(newcard))
 
     }
     const changeTitle = (_id: string) => {
+        const objUpdatePack:cardsPackTypeobj<updatePackType>={cardsPack:{_id:_id,name: 'new name'}}
 
+            dispatch(unpdatePackTC(objUpdatePack))
     }
     const deletePack = (_id: string) => {
+        dispatch(deletePackTC(_id))
 
     }
     const showCards = (_id: string) => {
@@ -61,7 +82,7 @@ const Packs = () => {
                     <th>Name</th>
                     <th>Cards count</th>
                     <th>Created</th>
-                    <th>Lest update</th>
+                    <th>Last update</th>
                     <th><Button onClick={addPackTitle} label={'Add Pack'}/></th>
                 </tr>
                 </thead>
@@ -94,7 +115,7 @@ const Packs = () => {
 }
 
 
-export default Packs;
+export default PacksContainer;
 
 
 
