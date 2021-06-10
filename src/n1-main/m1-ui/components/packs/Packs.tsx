@@ -27,6 +27,7 @@ type PropsType = {
 }
 
 const Packs = ({userID}: PropsType) => {
+    const [newpack, setNewPack] = useState('')
     const dispatch = useDispatch();
     const cardPacks = useSelector<AppRootStateType, Array<CardPackType>>((state: AppRootStateType) => state.packs.cardPacks);
     const error = useSelector((state: AppRootStateType) => state.packs.error);
@@ -48,14 +49,15 @@ const Packs = ({userID}: PropsType) => {
     //     dispatch(setPacksError(error))
     // }
     const addPackTitle = () => {
-        const newcard: cardsPackTypeobj<cardPackPostType> = {cardsPack: {name: "my fucj cart"}}
+        const newcard: cardsPackTypeobj<cardPackPostType> = {cardsPack: {name: newpack}}
         dispatch(addPackTC(newcard))
+        setNewPack('')
 
     }
     const changeTitle = (_id: string) => {
-        const objUpdatePack:cardsPackTypeobj<updatePackType>={cardsPack:{_id:_id,name: 'new name'}}
+        const objUpdatePack: cardsPackTypeobj<updatePackType> = {cardsPack: {_id: _id, name: 'new name'}}
 
-            dispatch(unpdatePackTC(objUpdatePack))
+        dispatch(unpdatePackTC(objUpdatePack))
     }
     const deletePack = (_id: string) => {
         dispatch(deletePackTC(_id))
@@ -70,11 +72,14 @@ const Packs = ({userID}: PropsType) => {
         <div>
             <div>
                 <input
-
+                    value={newpack}
                     placeholder={'Enter name to new pack'}
-
+                    onChange={(e) => {
+                        setNewPack(e.currentTarget.value)
+                    }}
                     className={s.inputTitlePack}/>
-                <Button label={'Save'}/></div>
+                <Button onClick={addPackTitle} label={'Add Pack'}/>
+            </div>
             <SearchPack/>
             <table className={s.table}>
                 <thead>
@@ -83,7 +88,7 @@ const Packs = ({userID}: PropsType) => {
                     <th>Cards count</th>
                     <th>Created</th>
                     <th>Last update</th>
-                    <th><Button onClick={addPackTitle} label={'Add Pack'}/></th>
+                    <th>Controls</th>
                 </tr>
                 </thead>
                 {cardPacks.map((p: any) => {
