@@ -9,16 +9,22 @@ import {addPackTC, deletePackTC, getPacksTC, setPacksError, unpdatePackTC} from 
 import {NavLink} from "react-router-dom";
 import {cardPackPostType, CardPackType, cardsPackTypeobj, updatePackType} from "../../../m3-dal/packs-api";
 import Loading from "../../common/Loader/Loading";
+import ModalInput from "../modal/ModalInput";
 
 
 const PacksContainer = () => {
     ///это для того чтоб загржались свои карточки а не игната, чтоб работало раскоментировать
     const userID = useSelector<AppRootStateType, string>(state => state.profile._id)
+    const [show, setShow] = useState(false);
+
     if (!userID) {
         return <Loading/>
     }
 
-    return <Packs userID={userID}/>
+    return (<div>
+            <Packs userID={userID}/>
+        </div>
+    )
 }
 
 
@@ -27,14 +33,15 @@ type PropsType = {
 }
 
 const Packs = ({userID}: PropsType) => {
-    const [newpack, setNewPack] = useState('')
+    //для открытия модалки
+    const [show, setShow] = useState(false);
+
+
     const dispatch = useDispatch();
     const cardPacks = useSelector<AppRootStateType, Array<CardPackType>>((state: AppRootStateType) => state.packs.cardPacks);
     const error = useSelector((state: AppRootStateType) => state.packs.error);
-    // const _id = useSelector((state: AppRootStateType) => state.packs.cardPacks[0]._id);
     const pageCount = useSelector((state: AppRootStateType) => state.packs.pageCount);
     const page = useSelector((state: AppRootStateType) => state.packs.page);
-    // const created = useSelector<AppRootStateType, Array<CardPackType>>((state: AppRootStateType) => state.packs.cardPacks[0].created);
 
     useEffect(() => {
         dispatch(getPacksTC(page, userID))  ///для получения своих карт по своему ид
@@ -42,17 +49,11 @@ const Packs = ({userID}: PropsType) => {
 
     }, [userID])
 
-    // if (cardPacks) {
-    //     debugger
-    //     dispatch(getPacksTC(cardPacks))
-    // } else {
-    //     dispatch(setPacksError(error))
-    // }
-    const addPackTitle = () => {
-        const newcard: cardsPackTypeobj<cardPackPostType> = {cardsPack: {name: newpack}}
-        dispatch(addPackTC(newcard))
-        setNewPack('')
 
+
+    const addPackTitle = () => {
+        //открывает модалку для добавления PACK
+        setShow(true)
     }
     const changeTitle = (_id: string) => {
         const objUpdatePack: cardsPackTypeobj<updatePackType> = {cardsPack: {_id: _id, name: 'new name'}}
@@ -67,17 +68,16 @@ const Packs = ({userID}: PropsType) => {
 
     }
 
-
     return (
         <div>
+            {/*если show true, откроется модалка*/}
+            {show && <ModalInput
+                show={show}
+                close={() => setShow(false)}
+                enableBackground={true}
+                backgroundOnClick={() => setShow(false)}
+            />}
             <div>
-                <input
-                    value={newpack}
-                    placeholder={'Enter name to new pack'}
-                    onChange={(e) => {
-                        setNewPack(e.currentTarget.value)
-                    }}
-                    className={s.inputTitlePack}/>
                 <Button onClick={addPackTitle} label={'Add Pack'}/>
             </div>
             <SearchPack/>
@@ -93,7 +93,6 @@ const Packs = ({userID}: PropsType) => {
                 </thead>
                 {cardPacks.map((p: any) => {
                     return <tbody key={p._id} className={s.packData}>
-                    {/*return <tbody className={s.packData}>*/}
                     <tr>
                         <td>{p.name}</td>
                         <td>{p.cardsCount}</td>

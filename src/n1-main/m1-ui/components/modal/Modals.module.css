@@ -1,0 +1,48 @@
+
+.rowBtn {
+    display: flex;
+}
+
+
+.closeBtn button {
+    border: none;
+    margin-left: 260px;
+    margin-bottom: 40px;
+    background: transparent;
+    size: 10px;
+}
+
+.divBackgroundTransparent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    opacity: 0.35;
+    z-index: 20;
+}
+
+.divModal {
+    position: fixed;
+    top: calc(50vh - 100px);
+    left: calc(50vw - 150px);
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    background: cornflowerblue;
+    z-index: 21;
+}
+
+.setNameInput {
+    height: 48px;
+    border: none;
+    background-color: #F9F9FE;
+    font-family: SF UI Display;
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 20px;
+}
