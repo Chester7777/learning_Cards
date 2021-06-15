@@ -1,14 +1,12 @@
 import React, {CSSProperties, ReactNode, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import s from "./Modals.module.css"
-import style from '../../registration/Registration.module.css'
-import {cardPackPostType, cardsPackTypeobj } from '../../../m3-dal/packs-api';
-import { addPackTC } from '../../../m2-bll/packReducer';
+import {unpdatePackTC} from '../../../m2-bll/packReducer';
 import Modal from './Modal';
 import {Button} from "../../common/Button/Button";
+import {cardsPackTypeobj, updatePackType} from '../../../m3-dal/packs-api';
 
-type ModalInputType = {
-    show: boolean;
+type ModalUpdateType = {
     close: () => void;
     button?: ReactNode;
     enableBackground?: boolean;
@@ -16,9 +14,11 @@ type ModalInputType = {
     backgroundOnClick?: () => void;
     modalStyle?: CSSProperties;
     modalOnClick?: () => void;
+    _id: string
+    show: boolean;
 }
 
-const ModalInput: React.FC<ModalInputType> = (
+const ModalUpdate: React.FC<ModalUpdateType> = (
     {
         button = 'save',
         enableBackground,
@@ -28,6 +28,7 @@ const ModalInput: React.FC<ModalInputType> = (
         modalOnClick = () => {},
         show,
         close,
+        _id
     }
 ) => {
     const dispatch = useDispatch();
@@ -37,10 +38,9 @@ const ModalInput: React.FC<ModalInputType> = (
     });
 
     const successCloseModal = () => {
-        const newcard: cardsPackTypeobj<cardPackPostType> = {cardsPack: {name: newName}}
-        dispatch(addPackTC(newcard))
+        const objUpdatePack: cardsPackTypeobj<updatePackType> = {cardsPack: {_id: _id, name: newName}}
+        dispatch(unpdatePackTC(objUpdatePack))
         setNewName('')
-
 
         saveInputs.f();
         setNewName(newName || '');
@@ -58,16 +58,16 @@ const ModalInput: React.FC<ModalInputType> = (
                 backgroundOnClick()
             }}
             modalOnClick={modalOnClick}
-            show={show}
+            show={true}
         >
             <div className={s.closeBtn}>
                 <button onClick={()=> close()}>x</button>
             </div>
-            {"Creat new pack"}
+            {"update name pack"}
             <div>
                 <input className={s.setNameInput}
                        name={'name'}
-                       type={'name'}
+                       type={'text'}
                        value={newName}
                        onChange={e => setNewName(e.currentTarget.value)}
                 />
@@ -77,17 +77,17 @@ const ModalInput: React.FC<ModalInputType> = (
                     <Button
                         onClick={() => close()}
                         label={'cancel'}
-                    backgroundColor={'blue'}/>
+                        backgroundColor={'blue'}/>
                 </div>
                 <div>
                     <Button
                         onClick={successCloseModal}
                         label={'save'}
-                    backgroundColor={'blue'}/>
+                        backgroundColor={'blue'}/>
                 </div>
             </div>
         </Modal>
     );
 };
 
-export default ModalInput;
+export default ModalUpdate;

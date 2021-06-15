@@ -6,7 +6,6 @@ type ModalType = {
     backgroundOnClick?: () => void;
     modalOnClick?: () => void;
     show: boolean
-    showModalDelete?: string
 }
 
 const Modal: React.FC<ModalType> = (
@@ -16,7 +15,6 @@ const Modal: React.FC<ModalType> = (
         modalOnClick = () => {},
         show,
         children,
-        showModalDelete
     }
 ) => {
 

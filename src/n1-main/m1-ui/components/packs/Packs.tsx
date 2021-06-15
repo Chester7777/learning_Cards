@@ -5,12 +5,13 @@ import {SearchPack} from "../searchPack/SearchPack";
 import {Paginator} from "../searchPack/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store";
-import {getPacksTC, unpdatePackTC} from "../../../m2-bll/packReducer";
+import {getPacksTC} from "../../../m2-bll/packReducer";
 import {NavLink} from "react-router-dom";
-import {CardPackType, cardsPackTypeobj, updatePackType} from "../../../m3-dal/packs-api";
+import {CardPackType} from "../../../m3-dal/packs-api";
 import Loading from "../../common/Loader/Loading";
-import ModalInput from "../modal/ModalInput";
 import ModalDelete from "../modal/ModalDelete";
+import ModalUpdate from "../modal/ModalUpdate";
+import ModalAddPack from "../modal/ModalAddPack";
 
 
 const PacksContainer = () => {
@@ -35,7 +36,9 @@ type PropsType = {
 const Packs = ({userID}: PropsType) => {
     //для открытия модалки
     const [show, setShow] = useState<boolean>(false);
-    const [showModalDelete, setShowModalDelete] = useState<string>('');
+    const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+    const [update, setUpdate] = useState<string>("");
+    const [showModalDelete, setShowModalDelete] = useState<string>("");
 
 
     const dispatch = useDispatch();
@@ -54,8 +57,9 @@ const Packs = ({userID}: PropsType) => {
         setShow(true)
     }
     const changeTitle = (_id: string) => {
-        const objUpdatePack: cardsPackTypeobj<updatePackType> = {cardsPack: {_id: _id, name: 'new name'}}
-        dispatch(unpdatePackTC(objUpdatePack))
+        //открывает модалку для обновления PACK
+        setShowUpdateModal(true)
+        setUpdate(_id)
     }
     const deletePack = (_id: string) => {
         //открывает модалку для удаления PACK
@@ -69,15 +73,22 @@ const Packs = ({userID}: PropsType) => {
     return (
         <div>
             {/*если show true, откроется модалка*/}
-            {show && <ModalInput
+            {show && <ModalAddPack
                 show={show}
                 close={() => setShow(false)}
                 enableBackground={true}
                 backgroundOnClick={() => setShow(false)}
             />}
+            {/*если update true, откроется модалка*/}
+            {showUpdateModal && <ModalUpdate
+                close={() => setShowUpdateModal(false)}
+                enableBackground={true}
+                backgroundOnClick={() => setShowUpdateModal(false)}
+                _id={update}
+                show={show}
+            />}
             {/*если _id={showModalDelete} строка, откроется модалка*/}
             {Boolean(showModalDelete) && <ModalDelete
-                showModalDelete={showModalDelete}
                 close={() => setShowModalDelete('')}
                 enableBackground={true}
                 backgroundOnClick={() => setShowModalDelete('')}
