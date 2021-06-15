@@ -5,17 +5,17 @@ import {SearchPack} from "../searchPack/SearchPack";
 import {Paginator} from "../searchPack/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store";
-import {addPackTC, deletePackTC, getPacksTC, setPacksError, unpdatePackTC} from "../../../m2-bll/packReducer";
+import {getPacksTC, unpdatePackTC} from "../../../m2-bll/packReducer";
 import {NavLink} from "react-router-dom";
-import {cardPackPostType, CardPackType, cardsPackTypeobj, updatePackType} from "../../../m3-dal/packs-api";
+import {CardPackType, cardsPackTypeobj, updatePackType} from "../../../m3-dal/packs-api";
 import Loading from "../../common/Loader/Loading";
 import ModalInput from "../modal/ModalInput";
+import ModalDelete from "../modal/ModalDelete";
 
 
 const PacksContainer = () => {
     ///это для того чтоб загржались свои карточки а не игната, чтоб работало раскоментировать
     const userID = useSelector<AppRootStateType, string>(state => state.profile._id)
-    const [show, setShow] = useState(false);
 
     if (!userID) {
         return <Loading/>
@@ -34,7 +34,8 @@ type PropsType = {
 
 const Packs = ({userID}: PropsType) => {
     //для открытия модалки
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState<boolean>(false);
+    const [showModalDelete, setShowModalDelete] = useState<string>('');
 
 
     const dispatch = useDispatch();
@@ -45,10 +46,7 @@ const Packs = ({userID}: PropsType) => {
 
     useEffect(() => {
         dispatch(getPacksTC(page, userID))  ///для получения своих карт по своему ид
-        // dispatch(getPacksTC(page, ''))
-
     }, [userID])
-
 
 
     const addPackTitle = () => {
@@ -57,13 +55,13 @@ const Packs = ({userID}: PropsType) => {
     }
     const changeTitle = (_id: string) => {
         const objUpdatePack: cardsPackTypeobj<updatePackType> = {cardsPack: {_id: _id, name: 'new name'}}
-
         dispatch(unpdatePackTC(objUpdatePack))
     }
     const deletePack = (_id: string) => {
-        dispatch(deletePackTC(_id))
-
+        //открывает модалку для удаления PACK
+        setShowModalDelete(_id)
     }
+
     const showCards = (_id: string) => {
 
     }
@@ -76,6 +74,15 @@ const Packs = ({userID}: PropsType) => {
                 close={() => setShow(false)}
                 enableBackground={true}
                 backgroundOnClick={() => setShow(false)}
+            />}
+            {/*если _id={showModalDelete} строка, откроется модалка*/}
+            {Boolean(showModalDelete) && <ModalDelete
+                showModalDelete={showModalDelete}
+                close={() => setShowModalDelete('')}
+                enableBackground={true}
+                backgroundOnClick={() => setShowModalDelete('')}
+                _id={showModalDelete}
+                show={show}
             />}
             <div>
                 <Button onClick={addPackTitle} label={'Add Pack'}/>

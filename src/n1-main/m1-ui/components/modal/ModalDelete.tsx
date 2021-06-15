@@ -1,14 +1,12 @@
 import React, {CSSProperties, ReactNode, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import s from "./Modals.module.css"
-import style from '../../registration/Registration.module.css'
-import {cardPackPostType, cardsPackTypeobj } from '../../../m3-dal/packs-api';
-import { addPackTC } from '../../../m2-bll/packReducer';
+import {deletePackTC} from '../../../m2-bll/packReducer';
 import Modal from './Modal';
 import {Button} from "../../common/Button/Button";
 
-type ModalInputType = {
-    show: boolean;
+type ModalDeleteType = {
+    showModalDelete: string;
     close: () => void;
     button?: ReactNode;
     enableBackground?: boolean;
@@ -16,37 +14,32 @@ type ModalInputType = {
     backgroundOnClick?: () => void;
     modalStyle?: CSSProperties;
     modalOnClick?: () => void;
+    _id: string
+    show: boolean;
 }
 
-const ModalInput: React.FC<ModalInputType> = (
+const ModalDelete: React.FC<ModalDeleteType> = (
     {
-        button = 'save',
+        button = 'delete',
         enableBackground,
         backgroundStyle,
         backgroundOnClick = () => {},
         modalStyle,
         modalOnClick = () => {},
-        show,
+        showModalDelete = "",
         close,
+        _id,
+        show
     }
 ) => {
     const dispatch = useDispatch();
-    const [newName, setNewName] = useState("");
+
     const [saveInputs, setSaveInputs] = useState({
         f: () => {}
     });
 
-    const successCloseModal = () => {
-        const newcard: cardsPackTypeobj<cardPackPostType> = {cardsPack: {name: newName}}
-        dispatch(addPackTC(newcard))
-        setNewName('')
-
-
-        saveInputs.f();
-        setNewName(newName || '');
-        setSaveInputs({
-            f: () => {}
-        }); // unsubscribe
+    const deletePack = () => {
+        dispatch(deletePackTC(_id))
         close();
     };
 
@@ -54,40 +47,35 @@ const ModalInput: React.FC<ModalInputType> = (
         <Modal
             enableBackground={enableBackground}
             backgroundOnClick={() => {
-                setNewName(newName);
                 backgroundOnClick()
             }}
             modalOnClick={modalOnClick}
-            show={show}
+            showModalDelete={showModalDelete}
+            show={true}
         >
             <div className={s.closeBtn}>
-                <button onClick={()=> close()}>x</button>
+                <button onClick={() => close()}>x</button>
             </div>
-            {"Creat new pack"}
+
             <div>
-                <input className={s.setNameInput}
-                       name={'name'}
-                       type={'name'}
-                       value={newName}
-                       onChange={e => setNewName(e.currentTarget.value)}
-                />
+                {"Are you sure, you want to remove the pack?"}
             </div>
             <div className={s.rowBtn}>
                 <div>
                     <Button
                         onClick={() => close()}
                         label={'cancel'}
-                    backgroundColor={'blue'}/>
+                        backgroundColor={'blue'}/>
                 </div>
                 <div>
                     <Button
-                        onClick={successCloseModal}
-                        label={'save'}
-                    backgroundColor={'blue'}/>
+                        onClick={() => deletePack()}
+                        label={'delete'}
+                        backgroundColor={'blue'}/>
                 </div>
             </div>
         </Modal>
     );
 };
 
-export default ModalInput;
+export default ModalDelete;
