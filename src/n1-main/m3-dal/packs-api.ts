@@ -11,7 +11,7 @@ const instance = axios.create({
 })
 
 export const PacksAPI = {
-    getPacks (page: number,userID:string) {
+    getPacks (page: number,userID?:string) {
        return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=10&page=${page}&user_id=${userID}` )
     },
     deletePack(id:string){
