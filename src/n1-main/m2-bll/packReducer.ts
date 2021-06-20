@@ -32,7 +32,7 @@ const initialState = {
     minCardsCount: null,
     id: '',
     page: 1, // выбранная страница
-    pageCount: 10, // количество элементов на странице
+    pageCount: 5, // количество элементов на странице
     portionSize: 5,
     error: "Packs not found!!!"
 }
@@ -68,7 +68,7 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
 
 
 // thunks
-export const getPacksTC = (pageN: number, userID?: string) => async (dispatch: Dispatch) => {
+export const getPacksTC = (pageN: number, userID: string) => async (dispatch: Dispatch) => {
     try {
         const res = await PacksAPI.getPacks(pageN, userID)
         if (res.statusText === "OK")
@@ -88,10 +88,9 @@ export const getPacksTC = (pageN: number, userID?: string) => async (dispatch: D
             page,
             pageCount
         }
-
         dispatch(setPacksInfo(action))
-        dispatch(setCardPacksTotalCountAC(cardPacksTotalCount))
-        dispatch(setCurrentPageAC(page))
+        dispatch(setCardPacksTotalCountAC(action.cardPacksTotalCount))
+        dispatch(setCurrentPageAC(action.page))
 
     } catch (error) {
 

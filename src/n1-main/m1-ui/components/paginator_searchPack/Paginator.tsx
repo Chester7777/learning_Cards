@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store";
-import s from "./searchPack.module.css"
+import s from "./Paginator.module.css"
 import cn from "classnames";
 import { getPacksTC } from "../../../m2-bll/packReducer";
+import { useParams } from "react-router-dom";
 
 // type PaginatorType = {
 //     page: number
@@ -20,11 +21,8 @@ export let Paginator = () => {
     const portionSize = useSelector<AppRootStateType, number>(state => state.packs.portionSize);
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount);
     const currentPage = useSelector<AppRootStateType, number>(state => state.packs.page);
-    // const pageCount = useSelector<AppRootStateType, number>(state => state.packs.pageCount);
-    // const searchStatus = useSelector<AppRootStateType, 'allPacks' | 'myPacks'>(state => state.packs.searchStatus);
     const myId = useSelector<AppRootStateType, string>(state => state.packs.id);
-
-
+    // const { token } = useParams<{token: string}>();
     const dispatch = useDispatch()
 
 
@@ -32,19 +30,14 @@ export let Paginator = () => {
     let pages = [];
 
     const onPageChanged = (currentPage: number) => {
-        dispatch(getPacksTC(currentPage))
+        dispatch(getPacksTC(currentPage, myId))
     }
-    // const onPageChanged = (currentPage: number) => {
-    //     (searchStatus === 'allPacks')
-    //         ? dispatch(getPacksTC(currentPage))
-    //         : dispatch(searchMyPacksTC(currentPage, myId))
-    // }
+
 
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
 
-    // let portionCount = Math.ceil(pagesCount / pageCount);
     let portionCount = Math.ceil(pagesCount / portionSize);
     let [portionNumber, setPortionNumber] = useState<number>(1);
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
