@@ -39,7 +39,7 @@ const Packs = ({userID}: PropsType) => {
     const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
     const [update, setUpdate] = useState<string>("");
     const [showModalDelete, setShowModalDelete] = useState<string>("");
-
+    const [showAllPack, setshowAllPacks] = useState(false)
 
     const dispatch = useDispatch();
     const cardPacks = useSelector<AppRootStateType, Array<CardPackType>>((state: AppRootStateType) => state.packs.cardPacks);
@@ -48,8 +48,13 @@ const Packs = ({userID}: PropsType) => {
     const page = useSelector((state: AppRootStateType) => state.packs.page);
 
     useEffect(() => {
-        dispatch(getPacksTC(page, userID))  ///для получения своих карт по своему ид
-    }, [userID])
+        if (!showAllPack) {
+            dispatch(getPacksTC(page, userID))  ///для получения своих карт по своему ид
+
+        } else {
+            dispatch(getPacksTC(page, ""))
+        }
+    }, [userID,showAllPack])
 
 
     const addPackTitle = () => {
@@ -64,6 +69,9 @@ const Packs = ({userID}: PropsType) => {
     const deletePack = (_id: string) => {
         //открывает модалку для удаления PACK
         setShowModalDelete(_id)
+    }
+    const getAllPack = () => {
+        setshowAllPacks(true)
     }
 
     const showCards = (_id: string) => {
@@ -106,7 +114,9 @@ const Packs = ({userID}: PropsType) => {
                     <th>Cards count</th>
                     <th>Created</th>
                     <th>Last update</th>
-                    <th>Controls</th>
+                    <th>Controls <Button
+                        onClick={getAllPack}
+                        label={'Get All'}/></th>
                 </tr>
                 </thead>
                 {cardPacks.map((p: any) => {
@@ -123,7 +133,7 @@ const Packs = ({userID}: PropsType) => {
                             <Button
                                 onClick={() => deletePack(p._id)}
                                 label={'Delete'}/>
-                            <NavLink to='/cards' onClick={() => showCards(p._id)}>Cards</NavLink>
+                            <NavLink to={`/cards/${p._id}`} onClick={() => showCards(p._id)}>Cards</NavLink>
 
                         </td>
                     </tr>

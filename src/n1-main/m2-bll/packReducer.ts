@@ -138,7 +138,7 @@ export const unpdatePackTC = (objUpdatePack:cardsPackTypeobj<updatePackType>) =>
     try {
         const res = await PacksAPI.updatePack(objUpdatePack)
         if (res.statusText === "OK") {
-            dispatch(getPacksTC(page, _id))
+            // dispatch(getPacksTC(page, _id))
 
         }
     } catch (e) {
