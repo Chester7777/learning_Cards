@@ -4,10 +4,11 @@ import s from './Cards.module.css'
 import {Button} from "../../common/Button/Button";
 import {SearchPack} from "../searchPack/SearchPack";
 import {useDispatch, useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
 
 import { AppRootStateType } from "../../../m2-bll/store";
 import { CardPackType } from "../../../m3-dal/packs-api";
-import {addCardsTC, deleteCardTC, getCardTC, unpdateCardTC } from "../../../m2-bll/cardsReducer";
+import {addCardsTC, deleteCardTC, getCardTC, setcurrentIDcard, unpdateCardTC } from "../../../m2-bll/cardsReducer";
 import { useParams } from "react-router-dom";
 import {cardsPostType, cardsTypeobj, CardType, updateCardType } from "../../../m3-dal/cards-api";
 import Loading from "../../common/Loader/Loading";
@@ -15,6 +16,8 @@ import ModalUpdate from "../modal/ModalUpdate";
 import ModalDelete from "../modal/ModalDelete";
 import ModalDeleteCards from "../modal/ModalDeleteCards";
 import ModalUpdateCards from "../modal/ModalUpdateCards";
+import ModalAddCards from "../modal/ModalAddCards";
+import { useHistory } from "react-router-dom";
 
 type PropTyPe = {
     packID:string
@@ -26,21 +29,24 @@ type QuizParams = {
 const CardsContainer =React.memo(
     () => {
         const cards=useSelector<AppRootStateType,Array<CardType>>(state=> state.cards.cards)
+        const idS=useSelector<AppRootStateType,string|null>(state=> state.cards.currentIDpack)
         const { id }=useParams<QuizParams>();
         const dispatch = useDispatch();
+        let history = useHistory();
 
 
-        const updateHanler=useCallback(({_id,comments,question}:updateCardType)=>{
-            alert({id, _id, comments, question})
-            dispatch(unpdateCardTC({id,_id,comments,question}))
-
-        },[])
 
         useEffect(() => {
             debugger
             dispatch(getCardTC(1,id))
+if (!id&&idS){
 
-        }, [updateHanler])
+
+    dispatch(getCardTC(1,idS))
+
+    history.push(`/cards/${idS}`)
+}
+        }, [id])
 
 
 
@@ -51,7 +57,7 @@ const CardsContainer =React.memo(
         }
 
         return (<div>
-                <Cards updateHanler={updateHanler}
+                <Cards
                        cards={cards}
                         idPack={id}
 
@@ -65,53 +71,68 @@ const CardsContainer =React.memo(
 )
 type Propstype={
     cards:Array<CardType>
-    updateHanler:({_id,comments,question}:updateCardType)=>void
     idPack:string
 }
 const Cards =React.memo(
-    ({cards,updateHanler,idPack}:Propstype) => {
+    ({cards,idPack}:Propstype) => {
    
 const dispatch=useDispatch()
         const [show, setShow] = useState<boolean>(false);
-
-        const [showModalDelete, setShowModalDelete] = useState<string>("");
-        const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+        const [question,setQuestion]=useState('testmy21')
+        const [comments,setComments]=useState('answer my21')
+        const [showModalDelete, setShowModalDelete] = useState<string>('');
+        const [showUpdateModal, setShowUpdateModal] = useState<string>("");
+        const [showAddCardModal, setshowAddCardModal] = useState<string>("");
        ///id card for modal:
-        const [update, setUpdate] = useState<string>("");
+       //  const [updateID, setUpdate] = useState<string>("");
+
+
+
 
 
 // const dellH=useCallback((id:string)=>{
 //     deleteCardHandler(id)
 // },[])
+        
         const deleteCardHandler1=useCallback((idCard:string)=>{
+            // const callcback=deleteCardTC.bind(this,idCard,idPack)
+
             setShowModalDelete(idCard)
 
             // dispatch(deleteCardTC(idCard,idPack))
         },[])
 
         const updateH=useCallback((_id:string)=>{
-            setShowUpdateModal(true)
-            setUpdate(_id)
-
-            // updateHanler({_id,comments,question})
+            setShowUpdateModal(_id)
+ 
         },[cards])
         
-        
         const addCardHandler=useCallback(()=>{
-        // const objcards:cardsTypeobj<cardsPostType>={card:{cardsPack_id:idPack,question: question,answer:comments}}
-        // dispatch(addCardsTC(objcards))
-        
+            setshowAddCardModal('open')
+     
         },[])
+        const showcurrencard=(id:string)=>{
+            dispatch(setcurrentIDcard(id))
+        }
 
         return (
             <div>
                 {/*если update true, откроется модалка*/}
-                {showUpdateModal && <ModalUpdateCards
-                    close={() => setShowUpdateModal(false)}
+                {Boolean(showUpdateModal) && <ModalUpdateCards
+                    close={() => setShowUpdateModal('')}
                     enableBackground={true}
-                    backgroundOnClick={() => setShowUpdateModal(false)}
-                    _id={update}
-                    show={showUpdateModal}
+                    backgroundOnClick={() => setShowUpdateModal('')}
+                    _id={showUpdateModal} ///id card
+                    show={show}
+                    id={idPack} 
+                />}
+                {/*если update true, откроется ModalAddCards*/}
+                {Boolean(showAddCardModal) && <ModalAddCards
+                    close={() => setshowAddCardModal('')}
+                    enableBackground={true}
+                    backgroundOnClick={() => setshowAddCardModal('')}
+                    show={show}
+                    id={idPack}
                 />}
                 {/*если _id={showModalDelete} строка, откроется модалка*/}
                 {Boolean(showModalDelete) && <ModalDeleteCards
@@ -122,16 +143,16 @@ const dispatch=useDispatch()
                     idCArd={showModalDelete}
                     show={show}
                 />}
-                <div>
-                    <input
-                        placeholder={'Enter question'}
-                        className={s.inputQuestion}/>
-                    <input
-                        placeholder={'Enter answer'}
-                        className={s.inputAnswer}/>
-                    <Button
-                        label={'Save'}/>
-                </div>
+                {/*<div>*/}
+                {/*    <input*/}
+                {/*        placeholder={'Enter question'}*/}
+                {/*        className={s.inputQuestion}/>*/}
+                {/*    <input*/}
+                {/*        placeholder={'Enter answer'}*/}
+                {/*        className={s.inputAnswer}/>*/}
+                {/*    <Button*/}
+                {/*        label={'Save'}/>*/}
+                {/*</div>*/}
 
                 <SearchPack />
                 <table className={s.table}>
@@ -150,7 +171,9 @@ const dispatch=useDispatch()
                         return <tbody key={c._id} className={s.packData}>
                         <tr>
                             <td>{c.answer}</td>
-                            <td>{c.question}</td>
+                            <td onClick={()=>showcurrencard(c._id)}> <NavLink to={`/card/${c._id}`}>{c.question}</NavLink></td>
+                            {/*<NavLink to={`/cards/${p._id}`} onClick={() => showCards(p._id)}>Cards</NavLink>*/}
+
                             <td>{c.grade}</td>
                             <td>{c.shots}</td>
                             <td>
@@ -160,21 +183,15 @@ const dispatch=useDispatch()
                                 <Button
                                     onClick={() => deleteCardHandler1(c._id)}
                                     label={'Delete'}/>
-
                             </td>
                         </tr>
                         </tbody>
                     })
                     }
-
-
                 </table>
-
             </div>
         );
     }
-
 )
-
 export default CardsContainer;
 

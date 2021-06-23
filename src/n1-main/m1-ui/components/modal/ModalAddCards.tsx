@@ -4,7 +4,7 @@ import s from "./Modals.module.css"
 import {unpdatePackTC} from '../../../m2-bll/packReducer';
 import Modal from './Modal';
 import {Button} from "../../common/Button/Button";
-import {cardsPackTypeobj, updatePackType} from '../../../m3-dal/packs-api';
+import {cardPackPostType, cardsPackTypeobj, updatePackType} from '../../../m3-dal/packs-api';
 import { addCardsTC, unpdateCardTC } from '../../../m2-bll/cardsReducer';
 import {cardsPostType, cardsTypeobj } from '../../../m3-dal/cards-api';
 
@@ -16,13 +16,12 @@ type ModalUpdateType = {
     backgroundOnClick?: () => void;
     modalStyle?: CSSProperties;
     modalOnClick?: () => void;
-    _id: string
     show: boolean;
     id:string
 
 }
 
-const ModalUpdateCards: React.FC<ModalUpdateType> = (
+const ModalAddCards: React.FC<ModalUpdateType> = (
     {
         button = 'save',
         enableBackground,
@@ -32,14 +31,13 @@ const ModalUpdateCards: React.FC<ModalUpdateType> = (
         modalOnClick = () => {},
         show,
         close,
-        _id,  ///id card
         id    //pack
 
     }
 ) => {
     const dispatch = useDispatch();
     const [question,setQuestion]=useState('qestion')
-    const [comments,setComments]=useState('comment')
+    const [answer,setAnswer]=useState('answer')
     const [saveInputs, setSaveInputs] = useState({
         f: () => {}
     });
@@ -47,8 +45,9 @@ const ModalUpdateCards: React.FC<ModalUpdateType> = (
     const successCloseModal = () => {
 
 debugger
-        const objcards:cardsTypeobj<cardsPostType>={card:{cardsPack_id:_id,question: question,answer:comments}}
-        dispatch(unpdateCardTC({_id, id, comments, question}))
+        const objcards:cardsTypeobj<cardsPostType>={card:{cardsPack_id:id,question: question,answer:answer}}
+
+        dispatch(addCardsTC(objcards))
         setQuestion('')
 
         saveInputs.f();
@@ -85,8 +84,8 @@ debugger
                 <input className={s.setNameInput}
                        name={'name'}
                        type={'text'}
-                       value={comments}
-                       onChange={e => setComments(e.currentTarget.value)}
+                       value={answer}
+                       onChange={e => setAnswer(e.currentTarget.value)}
                 />
             </div>
             <div className={s.rowBtn}>
@@ -109,4 +108,4 @@ debugger
     );
 };
 
-export default ModalUpdateCards;
+export default ModalAddCards;

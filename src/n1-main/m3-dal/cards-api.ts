@@ -22,12 +22,30 @@ export const CardsAPI = {
     updateCards(objUpdatePack:cardsTypeobj<updateCardType>){
         debugger
         return instance.put('/cards/card',objUpdatePack)
+    },
+    putGrade(grade:putGradeType){
+        return instance.put<gradeRespType>('cards/grade',grade)
     }
 
     // resetPassword (password: string, resetPasswordToken: string) {
     //   return instance.post<ResetPasswordType>(`auth/set-new-password`, {password, resetPasswordToken})
     // }
 }
+export type putGradeType={
+    grade: number
+    card_id: string
+}
+export type gradeRespType={
+    updatedGrade: {
+        _id: string
+        cardsPack_id: string
+        card_id: string
+        user_id: string
+        grade: number
+        shots: number
+    }
+}
+
 
 export type updateCardType={
     _id: string

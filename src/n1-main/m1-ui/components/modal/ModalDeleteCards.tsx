@@ -17,6 +17,7 @@ type ModalDeleteType = {
     _id: string
     show: boolean;
     idCArd:string
+    // showModalDelete:any
 }
 
 const ModalDeleteCards: React.FC<ModalDeleteType> = (
@@ -30,17 +31,17 @@ const ModalDeleteCards: React.FC<ModalDeleteType> = (
         close,
         _id,
         show,
-        idCArd
+        idCArd,
+        // showModalDelete
     }
 ) => {
     const dispatch = useDispatch();
 
 
 
-    const deletePack = () => {
-        // dispatch(deletePackTC(_id))
+    const deletePack=function  ()  {
         dispatch(deleteCardTC(idCArd,_id))
-
+       // showModalDelete.call(null,arguments)
         close();
     };
 
@@ -63,13 +64,16 @@ const ModalDeleteCards: React.FC<ModalDeleteType> = (
             <div className={s.rowBtn}>
                 <div>
                     <Button
+                        primary={true}
                         onClick={() => close()}
                         label={'cancel'}
                         backgroundColor={'blue'}/>
                 </div>
                 <div>
                     <Button
+                        primary={true}
                         onClick={() => deletePack()}
+                        // onClick={() => handler()}
                         label={'delete'}
                         backgroundColor={'blue'}/>
                 </div>

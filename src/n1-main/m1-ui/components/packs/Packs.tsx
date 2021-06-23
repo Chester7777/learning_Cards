@@ -12,6 +12,7 @@ import Loading from "../../common/Loader/Loading";
 import ModalDelete from "../modal/ModalDelete";
 import ModalUpdate from "../modal/ModalUpdate";
 import ModalAddPack from "../modal/ModalAddPack";
+import {setcurrentIDpack} from "../../../m2-bll/cardsReducer";
 
 
 const PacksContainer = () => {
@@ -54,7 +55,7 @@ const Packs = ({userID}: PropsType) => {
         } else {
             dispatch(getPacksTC(page, ""))
         }
-    }, [userID,showAllPack])
+    }, [userID, showAllPack])
 
 
     const addPackTitle = () => {
@@ -75,7 +76,7 @@ const Packs = ({userID}: PropsType) => {
     }
 
     const showCards = (_id: string) => {
-
+        dispatch(setcurrentIDpack(_id))
     }
 
     return (

@@ -33,6 +33,8 @@ export let SearchPack = () => {
                 />
             </div>
             <Button
+                primary={true}
+
                 // onClick={getPacksCallback}
                 label={'Search'}
                 backgroundColor={'blue'}

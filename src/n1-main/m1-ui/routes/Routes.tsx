@@ -9,6 +9,7 @@ import Packs from '../components/packs/Packs';
 import Cards from '../components/cards/Cards';
 import NewPassword from '../components/forgotPassword/NewPassword';
 import CardsContainer from '../components/cards/Cards';
+import { Card } from '../components/cardComponent/card';
 
 
 const Routes = () => {
@@ -23,6 +24,7 @@ const Routes = () => {
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
                 <Route exact path={'/login'} render={() => <Login/>}/>
                 <Route exact path={'/packs'} render={() => <Packs/>}/>
+                <Route exact path={'/card/:id?'} render={() => <Card/>}/>
                 <Route exact path={'/cards/:id?'} render={() => <CardsContainer/>}/>
                 {/*<Route path={'/404'} render={() => <Error404/>}/>*/}
                 {/*<Redirect path={'*'} to={'/404'}/>*/}
