@@ -22,7 +22,6 @@ export let Paginator = () => {
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount);
     const currentPage = useSelector<AppRootStateType, number>(state => state.packs.page);
     const myId = useSelector<AppRootStateType, string>(state => state.packs.id);
-    // const { token } = useParams<{token: string}>();
     const dispatch = useDispatch()
 
 
