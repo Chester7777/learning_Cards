@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+.registerBlock p {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.registerForm label {
+    font-family: SF UI Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+    color: #24254A;
+    opacity: 0.5;
+    display: flex;
+    justify-content: left;
+    margin: 15px 0px 0px 0px;
+}
+
+.background {
+    background-color: #E5E5E5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.registerBlock {
+    margin: 0 auto;
+    max-width: 413px;
+    height: 540px;
+    background: #F9F9FE;
+    box-shadow: 0 4px 64px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 48px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 431px) {
+
+
+    .registerBlock p {
+        font-size: medium;
+        line-height: 20px;
+
+    }
+
+    .registerBlock {
+        max-width: 300px;
+    }
+}
+
+.registerFormInput {
+    width: 100%;
+    height: 48px;
+    border: none;
+    background-color: #F9F9FE;
+    border-bottom: 1px solid black;
+    outline: none;
+
+    font-family: SF UI Display;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.errorText {
+    height: 20px;
+    color: red;
+    margin-bottom: 5px;
+}
+.errorText p {
+    height: 20px;
+    color: forestgreen;
+    margin-bottom: 5px;
+}
+
+.check {
+    opacity: 1;
+}
+
+.inputcheck {
+    margin-top: 10px
+
+}
