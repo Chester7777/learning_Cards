@@ -14,6 +14,10 @@ export const PacksAPI = {
     getPacks (page: number,userID:string) {
        return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=10&page=${page}&user_id=${userID}` )
     },
+    getSeurchPacks ( packName: string) {
+        debugger
+       return instance.get<any>(`cards/pack?pageCount=10&packName=${packName}` )
+    },
     deletePack(id:string){
         return instance.delete(`/cards/pack?id=${id}`)
     },
@@ -41,6 +45,7 @@ export type GetCardPackResponseType = {
     maxCardsCount: number
     minCardsCount: number
     pageCount: number
+    name?: string
 }
 export type cardsPackTypeobj<D> ={
     cardsPack:D

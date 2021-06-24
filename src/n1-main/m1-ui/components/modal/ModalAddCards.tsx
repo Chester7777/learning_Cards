@@ -44,7 +44,6 @@ const ModalAddCards: React.FC<ModalUpdateType> = (
 
     const successCloseModal = () => {
 
-debugger
         const objcards:cardsTypeobj<cardsPostType>={card:{cardsPack_id:id,question: question,answer:answer}}
 
         dispatch(addCardsTC(objcards))
