@@ -20,7 +20,6 @@ export const CardsAPI = {
         return instance.post('/cards/card',objcards)
     },
     updateCards(objUpdatePack:cardsTypeobj<updateCardType>){
-        debugger
         return instance.put('/cards/card',objUpdatePack)
     },
     putGrade(grade:putGradeType){

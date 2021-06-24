@@ -187,7 +187,6 @@ export const addCardsTC = (objcards: cardsTypeobj<cardsPostType>) => async (disp
 
 export const setGradeTC = (grade:putGradeType) => async (dispatch: any, getState: any) => {
     const page = 1
-debugger
     try {
         const res = await CardsAPI.putGrade(grade)
             // dispatch(getCardTC(page, objcards.card.cardsPack_id))
@@ -208,7 +207,6 @@ export const unpdateCardTC = ({
     const objUpdatePack: cardsTypeobj<updateCardType> = {card: {_id, comments, question}}
 
     try {
-        debugger
         const res = await CardsAPI.updateCards(objUpdatePack)
         dispatch(getCardTC(page, id))
     } catch (e) {
