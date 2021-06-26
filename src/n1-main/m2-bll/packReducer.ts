@@ -1,5 +1,12 @@
 import {Dispatch} from "redux";
-import {cardPackPostType, CardPackType, cardsPackTypeobj, PacksAPI, updatePackType} from "../m3-dal/packs-api";
+import {
+    cardPackPostType,
+    CardPackType,
+    cardsPackTypeobj,
+    GetCardPackResponseType,
+    PacksAPI,
+    updatePackType
+} from "../m3-dal/packs-api";
 
 type InitialStateType = typeof initialState;
 
@@ -42,6 +49,8 @@ export const packReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case "PACKS/SET-PACKS":
             return {...state, cardPacks: action.cardPacks}
+        case "PACKS/SET-PACKS-SEURCH":
+            return {...state, packName: action.packName, min: action.minCardsCount, max: action.maxCardsCount}
         case "PACKS/SET-PACKSINFO":
             return {...state, ...action.packsInfo}
         case "PACKS/SET-PACKS-ERROR":
@@ -50,9 +59,9 @@ export const packReducer = (state = initialState, action: ActionsType) => {
             return {...state, page: action.page}
         case "SET_TOTAL_COUNT":
             return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
-        case "PACKS/SET-PACKSNAME-SEURCH":
-            debugger
-            return {...state, packsName: action.packName.filter((el: any)=> el.name)}
+        // case "PACKS/SET-PACKSNAME-SEURCH":
+        //     return {...state, packsName: action.packName[0].name}
+        // return {...state, packsName: action.packName.filter((el: any)=> el.name)}
         default:
             return state
     }
@@ -60,11 +69,18 @@ export const packReducer = (state = initialState, action: ActionsType) => {
 
 // actions
 export const setPacks = (cardPacks: Array<any>) => ({type: "PACKS/SET-PACKS", cardPacks} as const);
+// export const setPacks = (params: GetCardPackResponseType) => ({type: "PACKS/SET-PACKS", params} as const);
 export const setPacksInfo = (packsInfo: any) => ({type: "PACKS/SET-PACKSINFO", packsInfo} as const);
 export const setPacksError = (error: string) => ({type: "PACKS/SET-PACKS-ERROR", error} as const);
 
 //action seurch
-export const setPacksnameSeurch = (packName: any) => ({type: "PACKS/SET-PACKSNAME-SEURCH", packName} as const);
+// export const setPacksSeurchName = (packName: any) => ({type: "PACKS/SET-PACKSNAME-SEURCH", packName} as const);
+export const setPacksSeurch = (packName: string, minCardsCount: number, maxCardsCount: number) => ({
+    type: "PACKS/SET-PACKS-SEURCH",
+    packName,
+    minCardsCount,
+    maxCardsCount
+} as const);
 
 //actions Paginator
 export const setCurrentPageAC = (page: number) => ({type: "SET_CURRENT_PAGE", page} as const)
@@ -101,32 +117,14 @@ export const getPacksTC = (pageN: number, userID: string) => async (dispatch: Di
         dispatch(setPacksError(error))
     }
 }
-export const getPacksNameSeurchTC = ( packName: string) => async (dispatch: Dispatch) => {
+export const getPacksSeurchNameTC = (packName: string, min: number, max: number) => async (dispatch: Dispatch) => {
     try {
-        const res = await PacksAPI.getSeurchPacks(packName)
-        debugger
-        if (res.data.cardPacks)
-            dispatch(setPacksnameSeurch(res.data.cardPacks.filter((el: CardPackType)=> el.name)))
-
-        // const {
-        //     cardPacksTotalCount,
-        //     maxCardsCount,
-        //     minCardsCount,
-        //     page,
-        //     pageCount,
-        // } = res.data
-        // const action = {
-        //     cardPacksTotalCount,
-        //     maxCardsCount,
-        //     minCardsCount,
-        //     page,
-        //     pageCount,
-        // }
-        // dispatch(setPacksInfo(action))
-        // dispatch(setCardPacksTotalCountAC(action.cardPacksTotalCount))
-        // dispatch(setCurrentPageAC(action.page))
+        const res = await PacksAPI.getSeurchPacks(packName, min, max)
+        if (res.data.params) {
+            // dispatch(setPacks(res.data.cardPacks))
+            dispatch(setPacksSeurch(res.data.params.packName, res.data.params.min, res.data.params.max))
+        }
     } catch (error) {
-        debugger
         console.log('erroorr fetching packs!!!', error)
         dispatch(setPacksError(error))
     }
@@ -139,14 +137,9 @@ export const deletePackTC = (id: string) => async (dispatch: any, getState: any)
         if (res.statusText === "OK") {
             dispatch(getPacksTC(page, _id))
         }
-
     } catch (error) {
-
         console.log('erroorr fetching packs!!!', error)
-
     }
-
-
 }
 
 export const addPackTC = (newcard: cardsPackTypeobj<cardPackPostType>) => async (dispatch: any, getState: any) => {
@@ -156,11 +149,9 @@ export const addPackTC = (newcard: cardsPackTypeobj<cardPackPostType>) => async 
         const res = await PacksAPI.postPack(newcard)
         if (res.statusText === "Created") {
             dispatch(getPacksTC(page, _id))
-
         }
     } catch (e) {
         console.log('erroorr adding packs!!!', e)
-
     }
 }
 
@@ -186,7 +177,8 @@ type ActionsType =
     ReturnType<typeof setPacksError> |
     ReturnType<typeof setPacksInfo> |
     ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setPacksnameSeurch> |
+    ReturnType<typeof setPacksSeurch> |
+    // ReturnType<typeof setPacksSeurchName> |
     ReturnType<typeof setCardPacksTotalCountAC>;
 
 

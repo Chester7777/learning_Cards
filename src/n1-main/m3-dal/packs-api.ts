@@ -6,6 +6,7 @@ const settings = {
 }
 
 const instance = axios.create({
+    // baseURL: "http://localhost:7542/2.0/",
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
     ...settings
 })
@@ -14,9 +15,10 @@ export const PacksAPI = {
     getPacks (page: number,userID:string) {
        return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=10&page=${page}&user_id=${userID}` )
     },
-    getSeurchPacks ( packName: string) {
+    getSeurchPacks ( packName: string, min: number, max: number) {
         debugger
-       return instance.get<any>(`cards/pack?pageCount=10&packName=${packName}` )
+       return instance.get<any>(`cards/pack?pageCount=10&packName=${packName}&min=${min}&max=${max}` )
+       // return instance.get<GetSeurchPacksType>(`cards/pack?pageCount=10`, {params: {packName, min, max}} )
     },
     deletePack(id:string){
         return instance.delete(`/cards/pack?id=${id}`)
@@ -33,6 +35,13 @@ export const PacksAPI = {
     // }
 }
 
+export type GetSeurchPacksType = {
+    params: {
+        packName: string
+        min: number
+        max: number 
+    }
+}
 export type updatePackType={
     _id: string
     name?: string // не обязательно
