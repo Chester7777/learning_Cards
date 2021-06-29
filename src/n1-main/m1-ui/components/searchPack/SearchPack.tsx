@@ -65,7 +65,7 @@ export let SearchPack = () => {
                     range={{draggableTrack: true}}
                     defaultValue={[0, 10]}/>
             </div>
-            <div>{error}</div>
+            <div>{error && error}</div>
         </div>
     )
 }
