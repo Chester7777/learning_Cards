@@ -3,8 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store";
 import s from "./Paginator.module.css"
 import cn from "classnames";
-import { getPacksTC } from "../../../m2-bll/packReducer";
-import { useParams } from "react-router-dom";
+import {getPacksTC} from "../../../m2-bll/packReducer";
 
 // type PaginatorType = {
 //     page: number
@@ -56,7 +55,9 @@ export let Paginator = () => {
                         return <span
                             className={cn({[s.selectedPage]: currentPage === p}, s.pageNumber)}
                             key={p}
-                            onClick={(e) => {onPageChanged(p)}}>{p}</span>
+                            onClick={(e) => {
+                                onPageChanged(p)
+                            }}>{p}</span>
                     })
             }
             {

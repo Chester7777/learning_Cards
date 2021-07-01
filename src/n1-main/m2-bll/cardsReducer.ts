@@ -128,7 +128,7 @@ export const getCardTC = (pageN: number, packID: string) => async (dispatch: Dis
 
     } catch (error) {
 
-        console.log('erroorr fetching packs!!!', error)
+        console.log('error fetching packs!!!', error)
 
     }
 
@@ -142,7 +142,7 @@ export const deleteCardTC = (idCard: string, idPack: string, page: number = 1) =
 
     } catch (error) {
 
-        console.log('erroorr fetching packs!!!', error)
+        console.log('error fetching packs!!!', error)
 
     }
 
@@ -160,7 +160,7 @@ export const addCardsTC = (objcards: cardsTypeobj<cardsPostType>) => async (disp
 
         }
     } catch (e) {
-        console.log('erroorr adding packs!!!', e)
+        console.log('error adding packs!!!', e)
 
     }
 }
@@ -172,7 +172,7 @@ export const setGradeTC = (grade:putGradeType) => async (dispatch: any, getState
             // dispatch(getCardTC(page, objcards.card.cardsPack_id))
 
     } catch (e) {
-        console.log('erroorr adding packs!!!', e)
+        console.log('error adding packs!!!', e)
 
     }
 }
@@ -190,7 +190,7 @@ export const unpdateCardTC = ({
         const res = await CardsAPI.updateCards(objUpdatePack)
         dispatch(getCardTC(page, id))
     } catch (e) {
-        console.log('erroorr adding packs!!!', e)
+        console.log('error adding packs!!!', e)
 
     }
 }
