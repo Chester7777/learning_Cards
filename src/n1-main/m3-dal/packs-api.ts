@@ -13,12 +13,12 @@ const instance = axios.create({
 
 export const PacksAPI = {
     getPacks (page: number,userID:string) {
-       return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=10&page=${page}&user_id=${userID}` )
+       return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=&page=${page}&user_id=${userID}` )
     },
-    getSeurchPacks ( packName: string, min: number, max: number) {
-        debugger
-       return instance.get<any>(`cards/pack?pageCount=10&packName=${packName}&min=${min}&max=${max}` )
-       // return instance.get<GetSeurchPacksType>(`cards/pack?pageCount=10`, {params: {packName, min, max}} )
+    getSearchPacks ( packName: string, min: number, max: number, page: number,) {
+
+       return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=10&packName=${packName}&min=${min}&max=${max}&page=${page}` )
+       // return instance.get<GetSearchPacksType>(`cards/pack?pageCount=10`, {params: {packName, min, max}} )
     },
     deletePack(id:string){
         return instance.delete(`/cards/pack?id=${id}`)

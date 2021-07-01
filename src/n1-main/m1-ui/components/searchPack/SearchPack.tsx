@@ -4,13 +4,13 @@ import {Button} from "../../common/Button/Button";
 import s from './searchPack.module.css';
 import 'antd/dist/antd.css';
 import {useDispatch, useSelector} from "react-redux";
-import {getPacksSeurchNameTC, setPacksError} from "../../../m2-bll/packReducer";
+import {getPacksSearchNameTC, setPacksError} from "../../../m2-bll/packReducer";
 import {AppRootStateType} from "../../../m2-bll/store";
 
 
 export let SearchPack = () => {
     const dispatch = useDispatch();
-    // const cardPacks = useSelector((state: AppRootStateType) => state.packs.cardPacks);
+    const cardPacks = useSelector((state: AppRootStateType) => state.packs.cardPacks);
     // const packName = useSelector((state: AppRootStateType) => state.packs.name);
     // const userId = useSelector((state: AppRootStateType) => state.packs.id);
     // const pageN = useSelector((state: AppRootStateType) => state.packs.page);
@@ -20,7 +20,7 @@ export let SearchPack = () => {
     const [min, setMin] = useState<number>(0);
     const [max, setMax] = useState<number>(10);
 
-    const setPackNameSeurch = (e: ChangeEvent<HTMLInputElement>) => {
+    const setPackNameSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setPackName(e.currentTarget.value)
     }
     const setMinMaxValue = (arr: number[]) => {
@@ -35,8 +35,8 @@ export let SearchPack = () => {
     }
 
     const getPacksCallback = () => {
-        if (packName) {
-            dispatch(getPacksSeurchNameTC(packName, min, max))
+        if (packName || min || max ) {
+            dispatch(getPacksSearchNameTC(packName, min, max))
         } else {
             dispatch(setPacksError(error))
         }
@@ -49,7 +49,7 @@ export let SearchPack = () => {
                 <input
                     type="text"
                     name={"search"}
-                    onChange={setPackNameSeurch}
+                    onChange={setPackNameSearch}
                 />
             </div>
             <Button
@@ -65,7 +65,7 @@ export let SearchPack = () => {
                     range={{draggableTrack: true}}
                     defaultValue={[0, 10]}/>
             </div>
-            <div>{error && error}</div>
+            <div>{cardPacks.length === 0 && error}</div>
         </div>
     )
 }
