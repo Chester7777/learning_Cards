@@ -1,4 +1,5 @@
 import {Dispatch} from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import {
     CardsAPI,
     cardsPostType,
@@ -12,28 +13,7 @@ import {cardPackPostType, CardPackType, cardsPackTypeobj, PacksAPI, updatePackTy
 
 type InitialStateType = typeof initialState;
 
-// type InitialStateType = {
-//     cardPacks: any
-//     newPackTitle: null | string
-//     id: string
-//     cardPacksTotalCount: number
-//     pageCount?: number
-//     page?: number
-//     portionSize: number
-//     searchStatus: 'allPacks' | 'myPacks'
-// }
 
-// const initialState = {
-//     cards: [],
-//     newPackTitle: null,
-//     id: '',
-//     cardPacksTotalCount: 140,
-//     pageCount: 10,
-//     page: 1,
-//     portionSize: 5,
-//     searchStatus: 'allPacks',
-//     error: "Packs not found!!!"
-// }
 const initialState: GetCardResponseType = {
     cards: [],
     cardsTotalCount: null,
@@ -120,7 +100,7 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
 }
 
 // actions
-export const findCardToLearn = (id: string) => ({type: "CARDS/FIND-CARD-TO-LEARN", id} as const);
+export const findCardToLearn = (id: string|null) => ({type: "CARDS/FIND-CARD-TO-LEARN", id} as const);
 
 export const setCards = (cards: any) => ({type: "CARDS/SET-CARDS", cards} as const);
 export const setCardsInfo = (cardsInfo: any) => ({type: "CARDS/SET-CARDSINFO", cardsInfo} as const);

@@ -46,7 +46,6 @@ const ModalUpdateCards: React.FC<ModalUpdateType> = (
 
     const successCloseModal = () => {
 
-debugger
         const objcards:cardsTypeobj<cardsPostType>={card:{cardsPack_id:_id,question: question,answer:comments}}
         dispatch(unpdateCardTC({_id, id, comments, question}))
         setQuestion('')

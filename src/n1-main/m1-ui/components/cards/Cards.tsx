@@ -8,6 +8,8 @@ import {AppRootStateType} from "../../../m2-bll/store";
 import {getCardTC, setcurrentIDcard} from "../../../m2-bll/cardsReducer";
 import {CardType} from "../../../m3-dal/cards-api";
 import Loading from "../../common/Loader/Loading";
+import ModalUpdate from "../modal/ModalUpdate";
+import ModalDelete from "../modal/ModalDelete";
 import ModalDeleteCards from "../modal/ModalDeleteCards";
 import ModalUpdateCards from "../modal/ModalUpdateCards";
 import ModalAddCards from "../modal/ModalAddCards";

@@ -89,7 +89,7 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
 
 
 // thunks
-export const getPacksTC = (pageN: number, userID: string) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
+export const getPacksTC = (pageN: number = 1, userID: string) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
     try {
         let res
         const packName = getState().search.packName, min = getState().search.min, max = getState().search.max
@@ -167,7 +167,7 @@ export const unpdatePackTC = (objUpdatePack: cardsPackTypeobj<updatePackType>) =
     try {
         const res = await PacksAPI.updatePack(objUpdatePack)
         if (res.statusText === "OK") {
-            // dispatch(getPacksTC(page, _id))
+            dispatch(getPacksTC(page, _id))
 
         }
     } catch (e) {
