@@ -37,7 +37,6 @@ const CardsContainer =React.memo(
 
 
         useEffect(() => {
-            debugger
             dispatch(getCardTC(1,id))
 if (!id&&idS){
 
