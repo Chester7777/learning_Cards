@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {GetCardPackResponseType} from "./packs-api";
 
 
 const settings = {
@@ -11,7 +12,11 @@ const instance = axios.create({
 })
 export const CardsAPI = {
     getCards (page: number,cardsPackID:string) {
-       return instance.get<GetCardResponseType>(`cards/card?pageCount=10&page=${page}&cardsPack_id=${cardsPackID}` )
+       return instance.get<GetCardResponseType>(`cards/card?pageCount=&page=${page}&cardsPack_id=${cardsPackID}` )
+    },
+    getSearchCards(cardAnswer: string, cardQuestion: string, min: number, max: number, page?: number) {
+        return instance.get<any>(`cards/pack?pageCount=1000000&cardAnswer=${cardAnswer}&cardQuestion=${cardQuestion}&min=${min}&max=${max}&page=${page}`)
+        // return instance.get<GetSearchPacksType>(`cards/pack?pageCount=10`, {params: {packName, min, max}} )
     },
     deleteCards(id:string){
         return instance.delete(`/cards/card?id=${id}`)

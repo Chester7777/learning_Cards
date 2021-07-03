@@ -13,6 +13,7 @@ import ModalDelete from "../modal/ModalDelete";
 import ModalDeleteCards from "../modal/ModalDeleteCards";
 import ModalUpdateCards from "../modal/ModalUpdateCards";
 import ModalAddCards from "../modal/ModalAddCards";
+import {SearchCards} from "../searchPack/SearchCards";
 
 type PropTyPe = {
     packID: string
@@ -134,7 +135,7 @@ const Cards = React.memo(
                 {/*        label={'Save'}/>*/}
                 {/*</div>*/}
 
-                <SearchPack/>
+                <SearchCards/>
                 <table className={s.table}>
                     <thead>
                     <tr>

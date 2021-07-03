@@ -110,9 +110,7 @@ export const getPacksTC = (pageN: number = 1, userID: string) => async (dispatch
 export const getPacksSearchNameTC = (packName: string, min: number, max: number) => async (dispatch: Dispatch) => {
     try {
         const res = await PacksAPI.getSearchPacks(packName, min, max, 1)
-        if (res.statusText === "OK") {
             dispatch(setPacks(res.data.cardPacks))
-        }
     } catch (error) {
         console.log('error fetching packs!!!', error)
         dispatch(setPacksError(error))
