@@ -72,6 +72,7 @@ export  type CardType = {
 export const cardsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "CARDS/SET-CARDS":
+            debugger
             return {
                 ...state,
                 cards: action.cards
@@ -138,7 +139,6 @@ export const getCardsSearch = (
     page?: number
 ) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
 
-
     try {
         // let res
         // const cardAnswer = getState().cards.cardAnswer, cardQuestion = getState().cards.cardQuestion, min = getState().cards.minGrade, max = getState().cards.maxGrade
@@ -147,11 +147,13 @@ export const getCardsSearch = (
         // } else {
         //     res = await PacksAPI.getPacks(pageN, userID)
         // }
+        debugger
        let  res = await CardsAPI.getSearchCards(cardAnswer, cardQuestion, min, max, page)
         dispatch(setCards(res.data.cards))
 
     } catch (error) {
-        console.log('error search cards!!!', error)
+        debugger
+        console.log('error search cards!!!', error.info)
 
     }
 

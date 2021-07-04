@@ -10,7 +10,6 @@ import {getCardsSearch} from "../../../m2-bll/cardsReducer";
 
 
 export let SearchCards = React.memo(() => {
-
         const dispatch = useDispatch();
         const cards = useSelector((state: AppRootStateType) => state.cards.cards);
         const error = useSelector((state: AppRootStateType) => state.packs.error);
@@ -39,9 +38,11 @@ export let SearchCards = React.memo(() => {
         }
 
         const getPacksCallback = () => {
-            if (!!cards.length) {
+            if (!!cards) {
+                debugger
                 dispatch(getCardsSearch(cardAnswer, cardQuestion, min, max))
             } else {
+                debugger
                 dispatch(setPacksError(error))
             }
         }
@@ -83,3 +84,5 @@ export let SearchCards = React.memo(() => {
         )
     }
 )
+
+
