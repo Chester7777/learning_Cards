@@ -21,8 +21,8 @@ const Header = () => {
                 <NavLink to='/Registration' activeClassName={s.active}>Registration</NavLink>
             </div>
             {!isLoggedIn ? <div className={s.item}>
-                <NavLink to='/forgot-password' activeClassName={s.active}>Forgot Password</NavLink>
-            </div> :
+                    <NavLink to='/forgot-password' activeClassName={s.active}>Forgot Password</NavLink>
+                </div> :
                 <div className={s.item}>
                     <NavLink to='/new-password' activeClassName={s.active}>New Password</NavLink>
                 </div>}
@@ -41,9 +41,8 @@ const Header = () => {
             <div className={s.item}>
                 <NavLink to='/cards' activeClassName={s.active}>Cards</NavLink>
             </div>
-            <div className={s.item}>
-                <NavLink to='/card' activeClassName={s.active}>Card</NavLink>
-            </div>
+
+
         </nav>
     )
 }

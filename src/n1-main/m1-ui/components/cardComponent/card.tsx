@@ -20,32 +20,6 @@ type QuizParams = {
     id: string;
 };
 export const Card = () => {
-    useEffect(()=>{
-       if(!idcard){
-           debugger
-           const getCard = (cards: CardType[]) => {
-               const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
-               const rand = Math.random() * sum;
-               const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
-                       const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
-                       return {sum: newSum, id: newSum < rand ? i : acc.id}
-                   }
-                   , {sum: 0, id: -1});
-               console.log('test: ', sum, rand, res)
-
-               return cards[res.id + 1];
-           }
-
-           debugger
-           const randomCard = getCard(cards)
-// console.log(randomCard)
-           const randomId = randomCard._id
-           dispatch(setcurrentIDcard(randomId))
-           history.push(`/card/${randomId}`)
-
-       }
-    },[])
-    // const userID = useSelector<AppRootStateType, string>(state => state.profile._id)
 
     const dispatch = useDispatch()
     const {id} = useParams<QuizParams>()
@@ -58,25 +32,22 @@ export const Card = () => {
     const [randomC, setrandomC] = useState(false)
     let history = useHistory();
 
-    useEffect(() => {
-        // dispatch(findCardToLearn(id))
-        if (!id && idcard) {
-            dispatch(findCardToLearn(idcard))
-            history.push(`/card/${idcard}`)
-
-        }
-        history.push(`/card/${id}`)
-
-
-
-    }, [id])
+//     useEffect(() => {
+//         // dispatch(findCardToLearn(id))
+//         if (!id && idcard) {
+//             dispatch(findCardToLearn(idcard))
+//             history.push(`/card/${idcard}`)
+//
+//         }
+//         history.push(`/card/${id}`)
+// debugger
+//     }, [randomC, cardToLearn])
 
 
     const getRandomCard = () => {
         setrandomC(!randomC)
     }
     if (randomC) {
-        debugger
         const getCard = (cards: CardType[]) => {
             const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
             const rand = Math.random() * sum;
@@ -93,10 +64,9 @@ export const Card = () => {
         const randomCard = getCard(cards)
 // console.log(randomCard)
         const randomId = randomCard._id
-        // dispatch(setcurrentIDcard(randomId))
-        // history.push(`/card/${randomId}`)
+        history.push(`/card/${randomId}`)
 
-
+        setrandomC(!randomC)
         return <CardContent id={randomId} getRandomCard={getRandomCard} cardToLearn={randomCard}/>
     }
 
