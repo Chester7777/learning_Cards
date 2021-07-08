@@ -72,7 +72,6 @@ export  type CardType = {
 export const cardsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "CARDS/SET-CARDS":
-            debugger
             return {
                 ...state,
                 cards: action.cards
