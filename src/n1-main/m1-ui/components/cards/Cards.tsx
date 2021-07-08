@@ -1,15 +1,12 @@
 import React, {useCallback, useEffect, useState} from "react";
 import s from './Cards.module.css'
 import {Button} from "../../common/Button/Button";
-import {SearchPack} from "../searchPack/SearchPack";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useHistory, useParams} from "react-router-dom";
 import {AppRootStateType} from "../../../m2-bll/store";
 import {getCardTC, setcurrentIDcard} from "../../../m2-bll/cardsReducer";
 import {CardType} from "../../../m3-dal/cards-api";
 import Loading from "../../common/Loader/Loading";
-import ModalUpdate from "../modal/ModalUpdate";
-import ModalDelete from "../modal/ModalDelete";
 import ModalDeleteCards from "../modal/ModalDeleteCards";
 import ModalUpdateCards from "../modal/ModalUpdateCards";
 import ModalAddCards from "../modal/ModalAddCards";

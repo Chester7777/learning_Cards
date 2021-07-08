@@ -27,7 +27,8 @@ const initialState: GetCardResponseType = {
     currentIDpack: null,
     currentIDcard: null,
     cardAnswer: "",
-    cardQuestion: ""
+    cardQuestion: "",
+    error: "Cards not found!!!"
 }
 export type GetCardResponseType = {
     cards: Array<CardType>
@@ -42,6 +43,7 @@ export type GetCardResponseType = {
     currentIDcard: string | null
     cardAnswer: string
     cardQuestion: string
+    error: string
 
 }
 
@@ -135,23 +137,15 @@ export const getCardsSearch = (
     cardQuestion: string,
     min: number,
     max: number,
-    page?: number
+    page: number,
+    cardsPackID: string | null
 ) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
 
     try {
-        // let res
-        // const cardAnswer = getState().cards.cardAnswer, cardQuestion = getState().cards.cardQuestion, min = getState().cards.minGrade, max = getState().cards.maxGrade
-        // if (cardAnswer) {
-        //     res = await PacksAPI.getSearchPacks(cardAnswer, cardQuestion, min, max, page)
-        // } else {
-        //     res = await PacksAPI.getPacks(pageN, userID)
-        // }
-        debugger
-       let  res = await CardsAPI.getSearchCards(cardAnswer, cardQuestion, min, max, page)
+        let res = await CardsAPI.getSearchCards(cardAnswer, cardQuestion, min, max, page, cardsPackID)
         dispatch(setCards(res.data.cards))
 
     } catch (error) {
-        debugger
         console.log('error search cards!!!', error.info)
 
     }
@@ -195,7 +189,7 @@ export const setGradeTC = (grade: putGradeType) => async (dispatch: any, getStat
         console.log('error adding packs!!!', e)
     }
 }
-// export const unpdateCardTC = (objUpdatePack:cardsPackTypeobj<updatePackType>) => async (dispatch: any, getState: any) => {
+
 export const unpdateCardTC = ({
                                   id,
                                   _id,

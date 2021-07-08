@@ -4,7 +4,7 @@ import {Button} from "../../common/Button/Button";
 import s from './searchPack.module.css';
 import 'antd/dist/antd.css';
 import {useDispatch, useSelector} from "react-redux";
-import {getPacksSearchNameTC, setPacksError} from "../../../m2-bll/packReducer";
+import {setPacksError} from "../../../m2-bll/packReducer";
 import {AppRootStateType} from "../../../m2-bll/store";
 import {getCardsSearch} from "../../../m2-bll/cardsReducer";
 
@@ -12,7 +12,9 @@ import {getCardsSearch} from "../../../m2-bll/cardsReducer";
 export let SearchCards = React.memo(() => {
         const dispatch = useDispatch();
         const cards = useSelector((state: AppRootStateType) => state.cards.cards);
-        const error = useSelector((state: AppRootStateType) => state.packs.error);
+        const error = useSelector((state: AppRootStateType) => state.cards.error);
+        const page = useSelector((state: AppRootStateType) => state.packs.page);
+        const id = useSelector<AppRootStateType, string | null>(state => state.cards.currentIDpack)
 
         const [cardAnswer, setCardAnswer] = useState<string>("");
         const [cardQuestion, setCardQuestion] = useState<string>("");
@@ -39,10 +41,8 @@ export let SearchCards = React.memo(() => {
 
         const getPacksCallback = () => {
             if (!!cards) {
-                debugger
-                dispatch(getCardsSearch(cardAnswer, cardQuestion, min, max))
+                dispatch(getCardsSearch(cardAnswer, cardQuestion, min, max, page, id))
             } else {
-                debugger
                 dispatch(setPacksError(error))
             }
         }
