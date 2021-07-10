@@ -27,31 +27,28 @@ type InitialStateType = typeof initialState;
 // }
 const initialState = {
     cardPacks: [],
-    cardPacksTotalCount: null, // количество колод
+    cardPacksTotalCount: 140, // количество колод
     maxCardsCount: null,
     minCardsCount: null,
-    page: null, // выбранная страница
-    pageCount: null, // количество элементов на странице
+    id: '',
+    page: 1, // выбранная страница
+    pageCount: 5, // количество элементов на странице
+    portionSize: 5,
     error: "Packs not found!!!"
 }
 
 export const packReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case "PACKS/SET-PACKS":
-            return {
-                ...state,
-                cardPacks: action.cardPacks
-            }
+            return {...state, cardPacks: action.cardPacks}
         case "PACKS/SET-PACKSINFO":
-            return {
-                ...state, ...action.packsInfo
-
-            }
+            return {...state, ...action.packsInfo}
         case "PACKS/SET-PACKS-ERROR":
-            return {
-                ...state,
-                error: state.error
-            }
+            return {...state, error: state.error}
+        case "SET_CURRENT_PAGE":
+            return {...state, page: action.page}
+        case "SET_TOTAL_COUNT":
+            return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
 
         default:
             return state
@@ -64,6 +61,10 @@ export const setPacksInfo = (packsInfo: any) => ({type: "PACKS/SET-PACKSINFO", p
 export const setPacksError = (error: string) => ({type: "PACKS/SET-PACKS-ERROR", error} as const);
 
 //actions Paginator
+export const setCurrentPageAC = (page: number) => ({type: "SET_CURRENT_PAGE", page} as const)
+export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
+    type: "SET_TOTAL_COUNT", cardPacksTotalCount
+} as const)
 
 
 // thunks
@@ -86,8 +87,9 @@ export const getPacksTC = (pageN: number=1, userID: string) => async (dispatch: 
             page,
             pageCount
         }
-
         dispatch(setPacksInfo(action))
+        dispatch(setCardPacksTotalCountAC(action.cardPacksTotalCount))
+        dispatch(setCurrentPageAC(action.page))
 
     } catch (error) {
 
@@ -131,7 +133,7 @@ export const addPackTC = (newcard: cardsPackTypeobj<cardPackPostType>) => async 
     }
 }
 
-export const unpdatePackTC = (objUpdatePack:cardsPackTypeobj<updatePackType>) => async (dispatch: any, getState: any) => {
+export const unpdatePackTC = (objUpdatePack: cardsPackTypeobj<updatePackType>) => async (dispatch: any, getState: any) => {
     const _id = getState().profile._id
     const page = getState().packs.page
     try {
@@ -151,6 +153,8 @@ export const unpdatePackTC = (objUpdatePack:cardsPackTypeobj<updatePackType>) =>
 type ActionsType =
     ReturnType<typeof setPacks> |
     ReturnType<typeof setPacksError> |
-    ReturnType<typeof setPacksInfo>
+    ReturnType<typeof setPacksInfo> |
+    ReturnType<typeof setCurrentPageAC> |
+    ReturnType<typeof setCardPacksTotalCountAC>;
 
 

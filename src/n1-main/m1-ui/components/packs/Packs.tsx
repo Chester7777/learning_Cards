@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import s from './Packs.module.css'
 import {Button} from "../../common/Button/Button";
 import {SearchPack} from "../searchPack/SearchPack";
-import {Paginator} from "../searchPack/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store";
 import {getPacksTC} from "../../../m2-bll/packReducer";
@@ -12,6 +11,7 @@ import Loading from "../../common/Loader/Loading";
 import ModalDelete from "../modal/ModalDelete";
 import ModalUpdate from "../modal/ModalUpdate";
 import ModalAddPack from "../modal/ModalAddPack";
+import { Paginator } from "../paginator_searchPack/Paginator";
 import {setcurrentIDpack} from "../../../m2-bll/cardsReducer";
 
 
