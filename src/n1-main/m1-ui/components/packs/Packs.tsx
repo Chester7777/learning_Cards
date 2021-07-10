@@ -13,6 +13,7 @@ import ModalUpdate from "../modal/ModalUpdate";
 import ModalAddPack from "../modal/ModalAddPack";
 import {Paginator} from "../paginator_searchPack/Paginator";
 import {setcurrentIDpack} from "../../../m2-bll/cardsReducer";
+import {SortPacks} from "../SortComponent/SortPacks";
 
 
 const PacksContainer = () => {
@@ -108,11 +109,23 @@ const Packs = React.memo(({userID}: PropsType) => {
                 <SearchPack/>
                 <table className={s.table}>
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Cards count</th>
-                        <th>Created</th>
-                        <th>Last update</th>
+                    <tr >
+                        <th className={s.heading}>
+                            Name
+                            <SortPacks property={"name"} />
+                        </th>
+                        <th className={s.heading}>
+                            Cards count
+                            <SortPacks  property={"cardsCount"} />
+                        </th>
+                        <th className={s.heading}>
+                            Created
+                            <SortPacks property={"created"} />
+                        </th>
+                        <th className={s.heading}>
+                            Last update
+                            <SortPacks property={"updated"}/>
+                        </th>
                         <th>Controls <Button
                             onClick={getAllPack}
                             label={'Get All'}/></th>

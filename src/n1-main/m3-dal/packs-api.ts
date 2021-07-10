@@ -19,6 +19,9 @@ export const PacksAPI = {
         return instance.get<GetCardPackResponseType>(`cards/pack?pageCount=1000000&packName=${packName}&min=${min}&max=${max}&page=${page}`)
         // return instance.get<GetSearchPacksType>(`cards/pack?pageCount=10`, {params: {packName, min, max}} )
     },
+    getSortPacks (page: number, id: string, sortPacks: string) {
+        return instance.get(`cards/pack?pageCount=&page=${page}&cardsPack_id=${id}&sortPacks=${sortPacks}`)
+    },
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`)
     },

@@ -28,7 +28,7 @@ const initialState: GetCardResponseType = {
     currentIDcard: null,
     cardAnswer: "",
     cardQuestion: "",
-    error: "Cards not found!!!"
+    error: "Cards not found!!!",
 }
 export type GetCardResponseType = {
     cards: Array<CardType>
@@ -44,7 +44,6 @@ export type GetCardResponseType = {
     cardAnswer: string
     cardQuestion: string
     error: string
-
 }
 
 
@@ -140,16 +139,12 @@ export const getCardsSearch = (
     page: number,
     cardsPackID: string | null
 ) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
-
     try {
         let res = await CardsAPI.getSearchCards(cardAnswer, cardQuestion, min, max, page, cardsPackID)
         dispatch(setCards(res.data.cards))
-
     } catch (error) {
         console.log('error search cards!!!', error.info)
-
     }
-
 }
 
 export const deleteCardTC = (idCard: string, idPack: string, page: number = 1) => async (dispatch: any) => {

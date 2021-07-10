@@ -36,7 +36,9 @@ const initialState = {
     pageCount: 5, // количество элементов на странице
     portionSize: 5,
     error: "Packs not found!!!",
-    packName: ""
+    packName: "",
+    sortPacks: ""
+
 }
 
 export const packReducer = (state = initialState, action: ActionsType) => {
@@ -51,6 +53,8 @@ export const packReducer = (state = initialState, action: ActionsType) => {
             return {...state, page: action.page}
         case "SET_TOTAL_COUNT":
             return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
+        case "PACKS/SET-SORT-PACKS":
+            return {...state, sortPacks: action.sortPacks}
         default:
             return state
     }
@@ -61,6 +65,7 @@ export const setPacks = (cardPacks: Array<any>) => ({type: "PACKS/SET-PACKS", ca
 // export const setPacks = (params: GetCardPackResponseType) => ({type: "PACKS/SET-PACKS", params} as const);
 export const setPacksInfo = (packsInfo: any) => ({type: "PACKS/SET-PACKSINFO", packsInfo} as const);
 export const setPacksError = (error: string) => ({type: "PACKS/SET-PACKS-ERROR", error} as const);
+export const setSortPacks = (sortPacks: string) => ({type: "PACKS/SET-SORT-PACKS", sortPacks} as const)
 
 //action search
 // export const setPacksSearchName = (packName: any) => ({type: "PACKS/SET-PACKSNAME-SEARCH", packName} as const);
@@ -110,12 +115,24 @@ export const getPacksTC = (pageN: number = 1, userID: string) => async (dispatch
 export const getPacksSearchNameTC = (packName: string, min: number, max: number) => async (dispatch: Dispatch) => {
     try {
         const res = await PacksAPI.getSearchPacks(packName, min, max, 1)
-            dispatch(setPacks(res.data.cardPacks))
+        dispatch(setPacks(res.data.cardPacks))
     } catch (error) {
         console.log('error fetching packs!!!', error)
         dispatch(setPacksError(error))
     }
 }
+
+export const getSortPacksTC = (page: number, id: string, sortPacks: string) => async (dispatch: Dispatch) => {
+    dispatch(setSortPacks(sortPacks))
+    try {
+        let res = await PacksAPI.getSortPacks(page, id, sortPacks)
+        dispatch(setPacks(res.data.cardPacks))
+    } catch (error) {
+        console.log('error sort packs!!!', error.info)
+        dispatch(setPacksError(error))
+    }
+}
+
 export const deletePackTC = (id: string) => async (dispatch: any, getState: any) => {
     const _id = getState().profile._id
     const page = getState().packs.page
@@ -163,6 +180,7 @@ type ActionsType =
     ReturnType<typeof setPacksError> |
     ReturnType<typeof setPacksInfo> |
     ReturnType<typeof setCurrentPageAC> |
+    ReturnType<typeof setSortPacks> |
     // ReturnType<typeof setPacksSearch> |
     // ReturnType<typeof setPacksSearchName> |
     ReturnType<typeof setCardPacksTotalCountAC>;

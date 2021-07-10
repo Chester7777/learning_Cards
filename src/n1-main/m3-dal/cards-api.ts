@@ -15,7 +15,7 @@ export const CardsAPI = {
     },
     getSearchCards(cardAnswer: string, cardQuestion: string, min: number, max: number, page: number, cardsPackID: string | null) {
 
-        return instance.get<any>(
+        return instance.get<GetCardResponseType>(
             `cards/card?pageCount=&cardAnswer=${cardAnswer}&cardQuestion=${cardQuestion}&min=${min}&max=${max}&page=${page}&cardsPack_id=${cardsPackID}`
         )
         // return instance.get<GetSearchPacksType>(`cards/pack?pageCount=10`, {params: {packName, min, max}} )
