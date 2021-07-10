@@ -71,7 +71,7 @@ export let SearchPack = React.memo(() => {
                         range={{draggableTrack: true}}
                         defaultValue={[0, 10]}/>
                 </div>
-                <div style={{fontSize: "50px", color: "red"}}>{cardPacks.length === 0 && error}</div>
+                <div style={{fontSize: "50px", color: "red"}}>{error}</div>
             </div>
         )
     }

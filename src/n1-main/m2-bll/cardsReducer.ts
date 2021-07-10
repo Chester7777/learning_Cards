@@ -28,7 +28,7 @@ const initialState: GetCardResponseType = {
     currentIDcard: null,
     cardAnswer: "",
     cardQuestion: "",
-    error: "Cards not found!!!",
+    error: "",
 }
 export type GetCardResponseType = {
     cards: Array<CardType>
@@ -94,9 +94,14 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
             const cardToLearn = copystate.cards.filter(c => {
                 if (c._id === action.id) return {...c}
             })
+
             return {
                 ...state, cardToLearn: {...cardToLearn}
             }
+        case "CARDS/SET-ERROR":
+            debugger
+            return {...state, error: action.error}
+
         default:
             return state
     }
@@ -108,6 +113,7 @@ export const setCards = (cards: Array<CardType>) => ({type: "CARDS/SET-CARDS", c
 export const setCardsInfo = (cardsInfo: any) => ({type: "CARDS/SET-CARDSINFO", cardsInfo} as const);
 export const setcurrentIDpack = (currentIDpack: string) => ({type: "CARDS/SET-currentIDpack", currentIDpack} as const);
 export const setcurrentIDcard = (currentIDcard: string) => ({type: "CARDS/SET-currentIDcard", currentIDcard} as const);
+export const setError = (error: string) => ({type: "CARDS/SET-ERROR", error} as const);
 
 //actions Paginator
 
@@ -116,9 +122,15 @@ export const setcurrentIDcard = (currentIDcard: string) => ({type: "CARDS/SET-cu
 
 // thunks
 export const getCardTC = (pageN: number, packID: string) => async (dispatch: Dispatch) => {
+    dispatch(setError(''))
+
     try {
         const res = await CardsAPI.getCards(pageN, packID)
         dispatch(setCards(res.data.cards))
+        if (res.data.cards.length === 0) {
+            debugger
+            dispatch(setError('Cards Not Found!'))
+        }
         const {
             page, pageCount, cardsTotalCount, maxGrade, minGrade, packUserId
         } = res.data
@@ -127,7 +139,7 @@ export const getCardTC = (pageN: number, packID: string) => async (dispatch: Dis
         }
         dispatch(setCardsInfo(action))
     } catch (error) {
-        console.log('error fetching packs!!!', error)
+        console.log('error fetching card!!!', error)
     }
 }
 
@@ -210,7 +222,8 @@ type ActionsType =
     ReturnType<typeof setCardsInfo> |
     ReturnType<typeof findCardToLearn> |
     ReturnType<typeof setcurrentIDpack> |
-    ReturnType<typeof setcurrentIDcard>
+    ReturnType<typeof setcurrentIDcard> |
+    ReturnType<typeof setError>
 
 
 type CardsInfoType = {

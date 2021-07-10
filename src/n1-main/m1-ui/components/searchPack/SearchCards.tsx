@@ -15,12 +15,10 @@ export let SearchCards = React.memo(() => {
         const error = useSelector((state: AppRootStateType) => state.cards.error);
         const page = useSelector((state: AppRootStateType) => state.packs.page);
         const id = useSelector<AppRootStateType, string | null>(state => state.cards.currentIDpack)
-
         const [cardAnswer, setCardAnswer] = useState<string>("");
         const [cardQuestion, setCardQuestion] = useState<string>("");
         const [min, setMin] = useState<number>(0);
         const [max, setMax] = useState<number>(10);
-
         const setCardAnswerSearch = (e: ChangeEvent<HTMLInputElement>) => {
             setCardAnswer(e.currentTarget.value)
         }
