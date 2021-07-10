@@ -10,32 +10,38 @@ const instance = axios.create({
     ...settings
 })
 export const CardsAPI = {
-    getCards (page: number,cardsPackID:string) {
-       return instance.get<GetCardResponseType>(`cards/card?pageCount=10&page=${page}&cardsPack_id=${cardsPackID}` )
+    getCards(page: number, cardsPackID: string) {
+        return instance.get<GetCardResponseType>(`cards/card?pageCount=&page=${page}&cardsPack_id=${cardsPackID}`)
     },
-    deleteCards(id:string){
+    getSearchCards(cardAnswer: string, cardQuestion: string, min: number, max: number, page: number, cardsPackID: string | null) {
+
+        return instance.get<GetCardResponseType>(
+            `cards/card?pageCount=&cardAnswer=${cardAnswer}&cardQuestion=${cardQuestion}&min=${min}&max=${max}&page=${page}&cardsPack_id=${cardsPackID}`
+        )
+        // return instance.get<GetSearchPacksType>(`cards/pack?pageCount=10`, {params: {packName, min, max}} )
+    },
+    deleteCards(id: string) {
         return instance.delete(`/cards/card?id=${id}`)
     },
-    postCards(objcards:cardsTypeobj<cardsPostType>){
-        return instance.post('/cards/card',objcards)
+    postCards(objcards: cardsTypeobj<cardsPostType>) {
+        return instance.post('/cards/card', objcards)
     },
-    updateCards(objUpdatePack:cardsTypeobj<updateCardType>){
-        debugger
-        return instance.put('/cards/card',objUpdatePack)
+    updateCards(objUpdatePack: cardsTypeobj<updateCardType>) {
+        return instance.put('/cards/card', objUpdatePack)
     },
-    putGrade(grade:putGradeType){
-        return instance.put<gradeRespType>('cards/grade',grade)
+    putGrade(grade: putGradeType) {
+        return instance.put<gradeRespType>('cards/grade', grade)
     }
 
     // resetPassword (password: string, resetPasswordToken: string) {
     //   return instance.post<ResetPasswordType>(`auth/set-new-password`, {password, resetPasswordToken})
     // }
 }
-export type putGradeType={
+export type putGradeType = {
     grade: number
     card_id: string
 }
-export type gradeRespType={
+export type gradeRespType = {
     updatedGrade: {
         _id: string
         cardsPack_id: string
@@ -47,13 +53,13 @@ export type gradeRespType={
 }
 
 
-export type updateCardType={
+export type updateCardType = {
     _id: string
     question?: string // не обязательно
     comments?: string // не обязателен
 }
 export type GetCardResponseType = {
-    cards : Array<CardType>
+    cards: Array<CardType>
     cardsTotalCount: number
     maxGrade: number
     minGrade: number
@@ -83,17 +89,16 @@ export  type CardType = {
     more_id: string
     questionImg: string
     questionVideo: string
- 
+
 }
 
 
-
-export type cardsTypeobj<D> ={
-    card:D
+export type cardsTypeobj<D> = {
+    card: D
 };
 
 
-export type cardsPostType ={
+export type cardsPostType = {
 
     cardsPack_id: string
     question?: string // если не отправить будет таким

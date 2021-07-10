@@ -4,22 +4,28 @@ import {Button} from "../../common/Button/Button";
 import s from './searchPack.module.css';
 import 'antd/dist/antd.css';
 import {useDispatch, useSelector} from "react-redux";
-import {getPacksSearchNameTC, setPacksError} from "../../../m2-bll/packReducer";
+import {setPacksError} from "../../../m2-bll/packReducer";
 import {AppRootStateType} from "../../../m2-bll/store";
+import {getCardsSearch} from "../../../m2-bll/cardsReducer";
 
 
-export let SearchPack = React.memo(() => {
-
+export let SearchCards = React.memo(() => {
         const dispatch = useDispatch();
-        const cardPacks = useSelector((state: AppRootStateType) => state.packs.cardPacks);
-        const error = useSelector((state: AppRootStateType) => state.packs.error);
+        const cards = useSelector((state: AppRootStateType) => state.cards.cards);
+        const error = useSelector((state: AppRootStateType) => state.cards.error);
+        const page = useSelector((state: AppRootStateType) => state.packs.page);
+        const id = useSelector<AppRootStateType, string | null>(state => state.cards.currentIDpack)
 
-        const [packName, setPackName] = useState<string>("");
+        const [cardAnswer, setCardAnswer] = useState<string>("");
+        const [cardQuestion, setCardQuestion] = useState<string>("");
         const [min, setMin] = useState<number>(0);
         const [max, setMax] = useState<number>(10);
 
-        const setPackNameSearch = (e: ChangeEvent<HTMLInputElement>) => {
-            setPackName(e.currentTarget.value)
+        const setCardAnswerSearch = (e: ChangeEvent<HTMLInputElement>) => {
+            setCardAnswer(e.currentTarget.value)
+        }
+        const setCardQuestionSearch = (e: ChangeEvent<HTMLInputElement>) => {
+            setCardQuestion(e.currentTarget.value)
         }
 
         const setMinMaxValue = (arr: number[]) => {
@@ -33,16 +39,9 @@ export let SearchPack = React.memo(() => {
             }
         }
 
-        //отправка запросов и поиск по первым буквам до нажатия кнопки поиска
-        // useEffect(() => {
-        //     setTimeout(() => {
-        //         dispatch(getPacksSearchNameTC(packName, min, max))
-        //     }, 2000)
-        // }, [packName, min, max])
-
         const getPacksCallback = () => {
-            if (!!cardPacks.length) {
-                dispatch(getPacksSearchNameTC(packName, min, max))
+            if (!!cards) {
+                dispatch(getCardsSearch(cardAnswer, cardQuestion, min, max, page, id))
             } else {
                 dispatch(setPacksError(error))
             }
@@ -53,9 +52,18 @@ export let SearchPack = React.memo(() => {
             <div className={s.searchPack}>
                 <div>
                     <input
+                        placeholder={"Question"}
                         type="text"
                         name={"search"}
-                        onChange={setPackNameSearch}
+                        onChange={setCardQuestionSearch}
+                    />
+                </div>
+                <div>
+                    <input
+                        placeholder={"Answer"}
+                        type="text"
+                        name={"search"}
+                        onChange={setCardAnswerSearch}
                     />
                 </div>
                 <Button
@@ -71,8 +79,10 @@ export let SearchPack = React.memo(() => {
                         range={{draggableTrack: true}}
                         defaultValue={[0, 10]}/>
                 </div>
-                <div style={{fontSize: "50px", color: "red"}}>{cardPacks.length === 0 && error}</div>
+                <div style={{fontSize: "50px", color: "red"}}>{cards.length === 0 && error}</div>
             </div>
         )
     }
 )
+
+

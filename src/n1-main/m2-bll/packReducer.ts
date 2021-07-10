@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
-import {cardPackPostType, CardPackType, cardsPackTypeobj, PacksAPI, updatePackType} from "../m3-dal/packs-api";
+import {cardPackPostType, cardsPackTypeobj, PacksAPI, updatePackType} from "../m3-dal/packs-api";
+import {AppRootStateType} from "./store";
 
 type InitialStateType = typeof initialState;
 
@@ -34,7 +35,10 @@ const initialState = {
     page: 1, // выбранная страница
     pageCount: 5, // количество элементов на странице
     portionSize: 5,
-    error: "Packs not found!!!"
+    error: "Packs not found!!!",
+    packName: "",
+    sortPacks: ""
+
 }
 
 export const packReducer = (state = initialState, action: ActionsType) => {
@@ -49,7 +53,8 @@ export const packReducer = (state = initialState, action: ActionsType) => {
             return {...state, page: action.page}
         case "SET_TOTAL_COUNT":
             return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
-
+        case "PACKS/SET-SORT-PACKS":
+            return {...state, sortPacks: action.sortPacks}
         default:
             return state
     }
@@ -57,8 +62,14 @@ export const packReducer = (state = initialState, action: ActionsType) => {
 
 // actions
 export const setPacks = (cardPacks: Array<any>) => ({type: "PACKS/SET-PACKS", cardPacks} as const);
+// export const setPacks = (params: GetCardPackResponseType) => ({type: "PACKS/SET-PACKS", params} as const);
 export const setPacksInfo = (packsInfo: any) => ({type: "PACKS/SET-PACKSINFO", packsInfo} as const);
 export const setPacksError = (error: string) => ({type: "PACKS/SET-PACKS-ERROR", error} as const);
+export const setSortPacks = (sortPacks: string) => ({type: "PACKS/SET-SORT-PACKS", sortPacks} as const)
+
+//action search
+// export const setPacksSearchName = (packName: any) => ({type: "PACKS/SET-PACKSNAME-SEARCH", packName} as const);
+// export const setPacksSearch = (cardPacks: Array<any>) => ({type: "PACKS/SET-PACKS-SEARCH", cardPacks} as const);
 
 //actions Paginator
 export const setCurrentPageAC = (page: number) => ({type: "SET_CURRENT_PAGE", page} as const)
@@ -68,9 +79,15 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
 
 
 // thunks
-export const getPacksTC = (pageN: number=1, userID: string) => async (dispatch: Dispatch) => {
+export const getPacksTC = (pageN: number = 1, userID: string) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
     try {
-        const res = await PacksAPI.getPacks(pageN, userID)
+        let res
+        const packName = getState().search.packName, min = getState().search.min, max = getState().search.max
+        if (packName) {
+            res = await PacksAPI.getSearchPacks(packName, min, max, pageN)
+        } else {
+            res = await PacksAPI.getPacks(pageN, userID)
+        }
         if (res.statusText === "OK")
             dispatch(setPacks(res.data.cardPacks))
         const {
@@ -90,16 +107,32 @@ export const getPacksTC = (pageN: number=1, userID: string) => async (dispatch: 
         dispatch(setPacksInfo(action))
         dispatch(setCardPacksTotalCountAC(action.cardPacksTotalCount))
         dispatch(setCurrentPageAC(action.page))
-
     } catch (error) {
-
-        console.log('erroorr fetching packs!!!', error)
-
+        console.log('error fetching packs!!!', error)
         dispatch(setPacksError(error))
     }
-
-
 }
+export const getPacksSearchNameTC = (packName: string, min: number, max: number) => async (dispatch: Dispatch) => {
+    try {
+        const res = await PacksAPI.getSearchPacks(packName, min, max, 1)
+        dispatch(setPacks(res.data.cardPacks))
+    } catch (error) {
+        console.log('error fetching packs!!!', error)
+        dispatch(setPacksError(error))
+    }
+}
+
+export const getSortPacksTC = (page: number, id: string, sortPacks: string) => async (dispatch: Dispatch) => {
+    dispatch(setSortPacks(sortPacks))
+    try {
+        let res = await PacksAPI.getSortPacks(page, id, sortPacks)
+        dispatch(setPacks(res.data.cardPacks))
+    } catch (error) {
+        console.log('error sort packs!!!', error.info)
+        dispatch(setPacksError(error))
+    }
+}
+
 export const deletePackTC = (id: string) => async (dispatch: any, getState: any) => {
     const _id = getState().profile._id
     const page = getState().packs.page
@@ -108,14 +141,9 @@ export const deletePackTC = (id: string) => async (dispatch: any, getState: any)
         if (res.statusText === "OK") {
             dispatch(getPacksTC(page, _id))
         }
-
     } catch (error) {
-
-        console.log('erroorr fetching packs!!!', error)
-
+        console.log('error fetching packs!!!', error)
     }
-
-
 }
 
 export const addPackTC = (newcard: cardsPackTypeobj<cardPackPostType>) => async (dispatch: any, getState: any) => {
@@ -125,11 +153,9 @@ export const addPackTC = (newcard: cardsPackTypeobj<cardPackPostType>) => async 
         const res = await PacksAPI.postPack(newcard)
         if (res.statusText === "Created") {
             dispatch(getPacksTC(page, _id))
-
         }
     } catch (e) {
-        console.log('erroorr adding packs!!!', e)
-
+        console.log('error adding packs!!!', e)
     }
 }
 
@@ -140,10 +166,9 @@ export const unpdatePackTC = (objUpdatePack: cardsPackTypeobj<updatePackType>) =
         const res = await PacksAPI.updatePack(objUpdatePack)
         if (res.statusText === "OK") {
             dispatch(getPacksTC(page, _id))
-
         }
     } catch (e) {
-        console.log('erroorr adding packs!!!', e)
+        console.log('error adding packs!!!', e)
 
     }
 }
@@ -155,6 +180,9 @@ type ActionsType =
     ReturnType<typeof setPacksError> |
     ReturnType<typeof setPacksInfo> |
     ReturnType<typeof setCurrentPageAC> |
+    ReturnType<typeof setSortPacks> |
+    // ReturnType<typeof setPacksSearch> |
+    // ReturnType<typeof setPacksSearchName> |
     ReturnType<typeof setCardPacksTotalCountAC>;
 
 

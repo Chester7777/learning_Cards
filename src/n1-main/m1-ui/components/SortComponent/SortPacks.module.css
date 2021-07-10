@@ -1,0 +1,10 @@
+
+
+.sortContainer {
+   display: flex;
+    justify-content: center;
+}
+
+.active {
+    background-color: cornflowerblue;
+}
