@@ -87,6 +87,6 @@ export type cardPackPostType = {
     shots?: number // не обязателен
     rating?: number // не обязателен
     deckCover?: string     // "url or base64" // не обязателен
-    private?: boolean // fals если не отправить будет такой
+    private?: boolean // false если не отправить будет такой
     type?: string      ////"pack" // если не отправить будет таким
 }

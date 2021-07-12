@@ -30,7 +30,6 @@ const PacksContainer = () => {
     )
 }
 
-
 type PropsType = {
     userID: string
 }
@@ -55,7 +54,6 @@ const Packs = React.memo(({userID}: PropsType) => {
                 dispatch(getPacksTC(page, ""))
             }
         }, [userID, showAllPack])
-
 
         const addPackTitle = () => {
             //открывает модалку для добавления PACK

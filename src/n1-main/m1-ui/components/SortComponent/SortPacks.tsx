@@ -9,18 +9,21 @@ import React, {useState} from "react";
 // }
 
 export const SortPacks = React.memo((props: { property: string }) => {
+
         const dispatch = useDispatch();
         const page = useSelector((state: AppRootStateType) => state.packs.page);
         const id = useSelector((state: AppRootStateType) => state.packs.id);
         const sortPack = useSelector((state: AppRootStateType) => state.packs.sortPacks);
-        const upSortPacks = `0${props.property}`
-        const downSortPacks = `1${props.property}`
 
-        const [up, setUp] = useState<boolean>(false)
-        const [down, setDown] = useState<boolean>(false)
+        const [up, setUp] = useState<boolean>(false);
+        const [down, setDown] = useState<boolean>(false);
+
+    const upSortPacks = `0${props.property}`;
+    const downSortPacks = `1${props.property}`;
 
 
-        const upCallback = () => {
+
+    const upCallback = () => {
             setUp(true)
             setDown(false)
             dispatch(getSortPacksTC(page, id, upSortPacks))

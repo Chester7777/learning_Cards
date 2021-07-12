@@ -26,6 +26,7 @@ type InitialStateType = typeof initialState;
 //     searchStatus: 'allPacks',
 //     error: "Packs not found!!!"
 // }
+
 const initialState = {
     cardPacks: [],
     cardPacksTotalCount: 140, // количество колод
@@ -38,7 +39,6 @@ const initialState = {
     error: "Packs not found!!!",
     packName: "",
     sortPacks: ""
-
 }
 
 export const packReducer = (state = initialState, action: ActionsType) => {
@@ -65,17 +65,17 @@ export const setPacks = (cardPacks: Array<any>) => ({type: "PACKS/SET-PACKS", ca
 // export const setPacks = (params: GetCardPackResponseType) => ({type: "PACKS/SET-PACKS", params} as const);
 export const setPacksInfo = (packsInfo: any) => ({type: "PACKS/SET-PACKSINFO", packsInfo} as const);
 export const setPacksError = (error: string) => ({type: "PACKS/SET-PACKS-ERROR", error} as const);
-export const setSortPacks = (sortPacks: string) => ({type: "PACKS/SET-SORT-PACKS", sortPacks} as const)
+export const setSortPacks = (sortPacks: string) => ({type: "PACKS/SET-SORT-PACKS", sortPacks} as const);
 
 //action search
 // export const setPacksSearchName = (packName: any) => ({type: "PACKS/SET-PACKSNAME-SEARCH", packName} as const);
 // export const setPacksSearch = (cardPacks: Array<any>) => ({type: "PACKS/SET-PACKS-SEARCH", cardPacks} as const);
 
 //actions Paginator
-export const setCurrentPageAC = (page: number) => ({type: "SET_CURRENT_PAGE", page} as const)
+export const setCurrentPageAC = (page: number) => ({type: "SET_CURRENT_PAGE", page} as const);
 export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
     type: "SET_TOTAL_COUNT", cardPacksTotalCount
-} as const)
+} as const);
 
 
 // thunks
@@ -169,12 +169,10 @@ export const unpdatePackTC = (objUpdatePack: cardsPackTypeobj<updatePackType>) =
         }
     } catch (e) {
         console.log('error adding packs!!!', e)
-
     }
 }
 
 // types
-
 type ActionsType =
     ReturnType<typeof setPacks> |
     ReturnType<typeof setPacksError> |

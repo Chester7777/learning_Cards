@@ -94,7 +94,6 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
             const cardToLearn = copystate.cards.filter(c => {
                 if (c._id === action.id) return {...c}
             })
-
             return {
                 ...state, cardToLearn: {...cardToLearn}
             }
@@ -170,8 +169,6 @@ export const deleteCardTC = (idCard: string, idPack: string, page: number = 1) =
         console.log('error fetching packs!!!', error)
 
     }
-
-
 }
 
 export const addCardsTC = (objcards: cardsTypeobj<cardsPostType>) => async (dispatch: any, getState: any) => {
@@ -211,7 +208,6 @@ export const unpdateCardTC = ({
         dispatch(getCardTC(page, id))
     } catch (e) {
         console.log('error adding packs!!!', e)
-
     }
 }
 

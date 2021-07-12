@@ -19,14 +19,13 @@ type PropTyPe = {
 type QuizParams = {
     id: string;
 };
-const CardsContainer = React.memo(
-    () => {
+const CardsContainer = React.memo(() => {
+
         const cards = useSelector<AppRootStateType, Array<CardType>>(state => state.cards.cards)
         const idS = useSelector<AppRootStateType, string | null>(state => state.cards.currentIDpack)
         const {id} = useParams<QuizParams>();
         const dispatch = useDispatch();
         let history = useHistory();
-
 
         useEffect(() => {
             dispatch(getCardTC(1, id))
@@ -50,12 +49,13 @@ const CardsContainer = React.memo(
         )
     }
 )
+
 type Propstype = {
     cards: Array<CardType>
     idPack: string
 }
-const Cards = React.memo(
-    ({cards, idPack}: Propstype) => {
+
+const Cards = React.memo(({cards, idPack}: Propstype) => {
 
         const dispatch = useDispatch()
         const [show, setShow] = useState<boolean>(false);
@@ -140,8 +140,10 @@ const Cards = React.memo(
                         <th>Question</th>
                         <th>Grade</th>
                         <th>Shots</th>
-                        <th><Button onClick={addCardHandler}
-                                    label={'Add Card'}/>
+                        <th><Button
+                            onClick={addCardHandler}
+                            label={'Add Card'}
+                        />
                         </th>
                     </tr>
                     </thead>
@@ -152,7 +154,6 @@ const Cards = React.memo(
                             <td onClick={() => showcurrencard(c._id)}><NavLink
                                 to={`/card/${c._id}`}>{c.question}</NavLink></td>
                             {/*<NavLink to={`/cards/${p._id}`} onClick={() => showCards(p._id)}>Cards</NavLink>*/}
-
                             <td>{c.grade}</td>
                             <td>{c.shots}</td>
                             <td>
