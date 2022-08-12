@@ -26,8 +26,8 @@ const Routes = () => {
                 <Route exact path={'/packs'} render={() => <Packs/>}/>
                 <Route exact path={'/card/:id?'} render={() => <Card/>}/>
                 <Route exact path={'/cards/:id?'} render={() => <CardsContainer/>}/>
-                {/*<Route path={'/404'} render={() => <Error404/>}/>*/}
-                {/*<Redirect path={'*'} to={'/404'}/>*/}
+                <Route path={'/404'} render={() => <Error404/>}/>
+                <Redirect path={'*'} to={'/404'}/>
             </Switch>
         </>
     );
